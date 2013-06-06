@@ -22,7 +22,6 @@ if(isset($_POST['submit']) && $_POST['submit'] == '実行'){
 	
 	if(!empty($name) && !empty($comment) && !empty($pass)) {
 			
-		$query ="INSERT INTO comments(name,comment,pass) VALUES('$name','$comment','$pass')";
 		$result =mysqli_query($db,$query) or die('ERROR!1');
 			
 		echo '<font color ="red">コメントが登録されました。</font>';

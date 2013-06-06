@@ -5,6 +5,8 @@
 <?php
 require_once 'view.php';
 require_once 'db.php';
+require_once 'controller.php';
+require_once 'index.php';
 
 	
 	$id =$_POST['id'];
@@ -25,9 +27,9 @@ if(isset($_POST['submit']) && $_POST['submit'] == '実行'){
 	$pass = $_POST['pass'];
 
 	if($pass == $delete_pass){
-		
-		$query ="DELETE FROM comments WHERE id = $id";
-		$result =mysqli_query($db,$query) or die('ERROR:削除出来ませんでした。');
+
+		$query_d ="DELETE FROM comments WHERE id = $id";
+		$result =mysqli_query($db,$query_d) or die('ERROR:削除出来ませんでした。');
 		
 		echo '<br/><font color ="red">削除しました。</font>';
 		echo '<a href ="index.php">戻る</a>';
