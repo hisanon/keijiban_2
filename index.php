@@ -1,14 +1,3 @@
-<?php
-
-
-//require_once ' ';
-//require_once ' ';
-//require_once ' ';
-
-$action ="";
-
-?>
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
@@ -26,22 +15,7 @@ $action ="";
 
 <?php
 //ページ上部の表示
-$action = $_POST['action'];
-
-	switch($action){
-		case "delete":
-			require_once 'delete_view.php';
-			
-		break;
-		
-		case "confirm":
-			require_once 'confirm_view.php';
-		
-		break;
-
-		default:
-			require_once 'form.php';
-	}
+require_once 'controll.php';
 ?>
 
 </div>
@@ -52,7 +26,7 @@ $action = $_POST['action'];
 		
 <?php
 //掲示板部分の表示
-require_once 'controll.php';
+require_once 'controll_bbs.php';
 
 ?>	
 </table>

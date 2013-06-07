@@ -13,7 +13,7 @@
 	function cutting(){
 	mysqli_close($db);
 	
-	return(cutting);
+	return (cutting);
 	}
 
 ?>
