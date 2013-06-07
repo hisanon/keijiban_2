@@ -1,4 +1,3 @@
-<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 <?php
 $name="";
 $comment="";
@@ -15,5 +14,3 @@ $pass ="";
 		　　　　　　　<input type="submit" value="送信" name="submit" />
 		<input type="hidden" value="confirm" name="action">
 	</form>
-	
-</div>

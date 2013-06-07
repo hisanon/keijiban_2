@@ -1,56 +1,63 @@
 <?php
-require_once 'view.php';
-require_once 'db.php';
-require_once 'controller.php';
-require_once 'model.php';
 
-$action="";
 
-$action =$_POST['action'];
+//require_once ' ';
+//require_once ' ';
+//require_once ' ';
+
+$action ="";
+
+?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TRANING01_a</title>
+</head>
+<body>
+<div id="waku">
+<div id="sample-title"><h1>TRANING02</h1></div>
+
+<div class="sample-contents">
+<h2>掲示板</h2>
+
+<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+
+<?php
+//ページ上部の表示
+$action = $_POST['action'];
 
 	switch($action){
 		case "delete":
-			require_once 'delete.php';
+			require_once 'delete_view.php';
+			
 		break;
 		
 		case "confirm":
-			require_once 'confirm.php';
-		break;
+			require_once 'confirm_view.php';
 		
+		break;
+
 		default:
 			require_once 'form.php';
 	}
-?>	
+?>
 
+</div>
 <table border="1" width="500" cellspacing="0" cellpadding="5">
 	<tr>
 	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th>
 	</tr>
 		
 <?php
+//掲示板部分の表示
+require_once 'controll.php';
 
-		while($row =mysqli_fetch_array($result_s)){
-
-			$id = $row['id'];
-			$name =$row['name'];
-			$comment =$row['comment'];
-			$delete_pass =$row['pass'];
-			$time = $row['time'];
-			$button = "削除";
-			$action = "delete";
-			$pass ="";
-
-				echo '<tr>';
-				echo '<td>'.$time.'</td>';
-				echo '<td>'.$name.'</td>';
-				echo '<td>'.$comment.'</td>';
-								
-				echo '<td>';
-				echo $form;
-				echo '</td>';
-				echo '</tr>';
-				
-		}
-mysqli_close($db);
 ?>	
 </table>
+</div>
+</div><!-- waku_END -->
+
+</body>
+</html>
