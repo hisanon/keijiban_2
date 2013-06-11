@@ -1,6 +1,10 @@
+<table border="1" width="500" cellspacing="0" cellpadding="5">
+	<tr>
+	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th>
+	</tr>
+
 <?php
-//掲示板のcontroll部分
-require_once 'model.php';
+$result= ALLDATA($db);
 
 	while($row =mysqli_fetch_array($result)){
 	
@@ -14,7 +18,7 @@ require_once 'model.php';
 			echo '<tr>';
 			echo '<td>'.$time.'</td>';
 			echo '<td>'.$name.'</td>';
-			echo '<td>'.$comment.'</td>';
+			echo '<td>'.nl2br ($comment).'</td>';
 
 				$delete_button = '<form method="post" action="index.php" >'.
 				'<input type="hidden" value="'.$id.'" name="id" />'.
@@ -30,5 +34,6 @@ require_once 'model.php';
 			
 	}
 
- echo $cutting;
 ?>
+
+</table>

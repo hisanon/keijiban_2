@@ -10,10 +10,9 @@
 	mysqli_query($db,"SET NAMES utf8");
 	
 	
-	function cutting(){
+	function cutting($db){
 	mysqli_close($db);
-	
-	return (cutting);
+	return $cutting;
 	}
 
 ?>
