@@ -1,6 +1,16 @@
 <?php
 require_once 'db.php';
 
+$action =$_POST['action'];
+
+	$id = $_POST['id'];
+	$name =$_POST['name'];
+	$comment =$_POST['comment'];
+	$time = $_POST['time'];
+	$delete_pass = $_POST['delete_pass'];
+	$pass =$_POST['pass'];
+	
+
 function ALLDATA($database){
 	$query ="SELECT * FROM comments ORDER by id desc" ;
 	$re =mysqli_query($database,$query) or die('ERROR!2');

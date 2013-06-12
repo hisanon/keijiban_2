@@ -13,8 +13,6 @@
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
-<?php echo $id.'ID';?>
-
 この内容を削除します。
 名前：<?php echo $name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
@@ -26,9 +24,6 @@
 <input type="hidden" name="id" value="<?php echo $id; ?>">
 <input type="hidden" name="action" value="delete2">
 <input type="submit" value="削除"></form>
-
-
-<?php echo $action; ?>
 
 <?php if ($action =="delete2"){ ?>
 <div style ="color:red">削除パスが間違っています。</div>

@@ -1,15 +1,6 @@
 <?php
 require_once 'model.php';
 
-$action =$_POST['action'];
-
-	$id = $_POST['id'];
-	$name =$_POST['name'];
-	$comment =$_POST['comment'];
-	$time = $_POST['time'];
-	$delete_pass = $_POST['delete_pass'];
-	$pass =$_POST['pass'];
-
 	switch($action){		
 		case "confirm":
 			if(!empty($pass)) {
