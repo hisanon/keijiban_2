@@ -1,3 +1,4 @@
+<!---削除確認画面--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
@@ -20,10 +21,8 @@
 </div>
 </div>
 <?php
-		
 //掲示板部分の表示
 require_once 'view_bbs.php';
-
 ?>	
 </sdiv><!-- waku_END -->
 

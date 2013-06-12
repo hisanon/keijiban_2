@@ -1,3 +1,4 @@
+<!---削除確認画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
@@ -13,6 +14,7 @@
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
+<!---削除確認--->
 この内容を削除します。
 名前：<?php echo $name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
@@ -25,6 +27,7 @@
 <input type="hidden" name="action" value="delete2">
 <input type="submit" value="削除"></form>
 
+<!---パスワードの確認--->
 <?php if ($action =="delete2"){ ?>
 <div style ="color:red">削除パスが間違っています。</div>
 <?php } ?> 
@@ -34,10 +37,8 @@
 </div>
 
 <?php
-		
 //掲示板部分の表示
 require_once 'view_bbs.php';
-
 ?>	
 </div>
 </div><!-- waku_END -->

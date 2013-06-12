@@ -1,12 +1,15 @@
+<!---掲示板部分の表示--->
 <table border="1" width="500" cellspacing="0" cellpadding="5">
 	<tr>
 	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th>
 	</tr>
 
 <?php
-$result= ALLDATA($db);
 
-while($row =mysqli_fetch_array($result)){
+$sth= ALLDATA($db,$id,$name,$comment,$pass);
+
+
+while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 	
 	$id = $row['id'];
 	$name =$row['name'];

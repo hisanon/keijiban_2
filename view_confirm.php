@@ -1,3 +1,4 @@
+<!---書き込み確認画面--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
@@ -13,6 +14,7 @@
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
+<!---書き込み内容--->
 名前：<?php echo $name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 削除パス：<?php echo $pass; ?> <br />
@@ -29,10 +31,8 @@
 </div>
 
 <?php
-		
 //掲示板部分の表示
 require_once 'view_bbs.php';
-
 ?>	
 </div>
 </div><!-- waku_END -->

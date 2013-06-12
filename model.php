@@ -1,6 +1,8 @@
 <?php
+//データベースの接続
 require_once 'db.php';
 
+//POSTの取得
 $action =$_POST['action'];
 
 	$id = $_POST['id'];
@@ -10,23 +12,34 @@ $action =$_POST['action'];
 	$delete_pass = $_POST['delete_pass'];
 	$pass =$_POST['pass'];
 	
-
-function ALLDATA($database){
-	$query ="SELECT * FROM comments ORDER by id desc" ;
-	$re =mysqli_query($database,$query) or die('ERROR!2');
-	return $re;
+//掲示板部分の表示
+function ALLDATA($db){
+	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc");
+	$sth->execute();
+	return $sth;
 }
 
+//書き込み部分の表示
 function INSERTBBS($db,$name,$comment,$pass){
-	$query ="INSERT INTO comments(name,comment,pass)VALUES('$name','$comment','$pass')";
-	$result =mysqli_query($db,$query) or die('ERROR!1');
-
-	return $result;
+try{
+	$sth =$db->prepare("INSERT INTO comments(name,comment,pass) VALUES('$name', '$comment', '$pass')");
+	$sth->execute();
+}
+catch(PDOException $e){
+	die('Insert failed: '.$e->getMessage());
+}
+	return $sth;
 }
 
-function DELETEBBS($db,$name,$comment,$pass,$id){
-	$query ="DELETE FROM comments WHERE id = $id";
-	$result =mysqli_query($db,$query) or die('ERROR:削除出来ませんでした。');
+//削除部分の表示
+function DELETEBBS($db,$id){
+try{
+	$sth =$db->prepare("DELETE FROM comments WHERE id = $id");
+	$sth->execute();	
+	}
+catch(PDOException $e){
+	die('Delete failed: '.$e->getMessage());
+	}
 	return $result;
 }
 

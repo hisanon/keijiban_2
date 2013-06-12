@@ -1,3 +1,4 @@
+<!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
@@ -18,17 +19,17 @@
 		<label for="name">　名前　:</label>
 		<input type="text" id="name" name="name" value="<?php echo $name; ?>"/><br />
 <?php if (empty($name) && !empty($action)) { ?>
-		<br /><div style ="color:red">名前を入力して下さい！</div>
+		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="comment">コメント:</label>
 		<textarea id="comment" name="comment"  cols="30" rows="5"><?php echo $comment; ?></textarea><br />
 <?php if (empty($comment) && !empty($action)) { ?>
-		<br /><div style ="color:red">コメントを入力して下さい！</div>
+		<div style ="color:red">コメントを入力して下さい！</div>
 <?php } ?>
 		<label for="pass">削除パス:</label>
 		<input type="pass" id="pass" name="pass" value="<?php echo $pass; ?>" /><br />
 <?php if (empty($pass) && !empty($action)) { ?>
-		<br /><div style ="color:red">パスワードを入力して下さい！</div>
+		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
 		　　　　　　　<input type="submit" value="送信" name="submit" />
 		<input type="hidden" value="confirm" name="action">
