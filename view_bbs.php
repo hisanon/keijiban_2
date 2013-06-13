@@ -5,9 +5,12 @@
 	</tr>
 
 <?php
+//総カウント数
+$pager = pager($db,$id,$name,$comment,$pass);
+
+
 
 $sth= ALLDATA($db,$id,$name,$comment,$pass);
-
 
 while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 	
@@ -16,6 +19,7 @@ while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 	$comment =$row['comment'];
 	$delete_pass =$row['pass'];
 	$time = $row['time'];
+	
 ?>
 
 	<tr>

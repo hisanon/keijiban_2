@@ -13,11 +13,38 @@ $action =$_POST['action'];
 	$pass =$_POST['pass'];
 	
 //掲示板部分の表示
-function ALLDATA($db){
+function ALLDATA($db,$id,$name,$comment,$pass){
 	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc");
 	$sth->execute();
 	return $sth;
 }
+
+	//総ページ数の計算
+function pager($db,$id,$name,$comment,$pass){
+$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
+$sql = "SELECT * FROM comments ";
+$stmt = $db->query($sql);
+$stmt->execute();
+$count=$stmt->rowCount();
+echo $count;
+	return $count;
+}
+
+function pageno(){
+ $pageno ="";
+
+for($pageno=1; $pageno<=10000){
+	
+while(){	
+	
+	$i = $h+$k;
+	$J = $i+5;
+	$k = $J ++;
+}
+echo <a href=\"$PHP_SELF?".$pageno."=".$pageno."\">".$pageno." </a>
+}
+}
+
 
 //書き込み部分の表示
 function INSERTBBS($db,$name,$comment,$pass){

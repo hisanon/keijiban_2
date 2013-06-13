@@ -1,7 +1,7 @@
-<?php
+<?php session_start();
 require_once 'model.php';
+$t_idname ="";
 
-	
 	switch($action){		
 		//書き込みが行われた場合
 		case "confirm":
@@ -45,5 +45,4 @@ require_once 'model.php';
 }
 
 //$cuting =	cutting($db);
-
 ?>	
