@@ -11,8 +11,11 @@ $pager = pager($db,$id,$name,$comment,$pass);
 
 
 $sth= ALLDATA($db,$id,$name,$comment,$pass);
+$a =1;
 
-while($row =$sth->fetch(PDO::FETCH_ASSOC)){
+for($a=1; $a<=5; $a ++){
+	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
+//while($a<=5 ){
 	
 	$id = $row['id'];
 	$name =$row['name'];
@@ -38,8 +41,21 @@ while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 		</form>
 	</td>
 	</tr>
-<?php
+<?php 
+$j =$id;
+//$a ++; 
 }
-?>
-
+}?>
 </table>
+
+<?php for($i=1; $i<=5; $i ++){ ?>
+	<form method="post" action="index.php" >
+	<input type="hidden" value="<?php echo $id; ?>" name="id" />
+	<input type="submit" value="<?php echo $i; ?>" name="submit" />
+	</form>
+<?php
+//$page =page($id);
+}
+echo $j.'aaaaaaa';
+
+?>

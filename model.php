@@ -12,12 +12,29 @@ $action =$_POST['action'];
 	$delete_pass = $_POST['delete_pass'];
 	$pass =$_POST['pass'];
 	
-//掲示板部分の表示
-function ALLDATA($db,$id,$name,$comment,$pass){
-	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc");
-	$sth->execute();
-	return $sth;
+	$pager = pager($db,$id,$name,$comment,$pass);
+
+	
+	//取り出す最大レコード数
+$lim =2;
+
+//ページの位置取得
+$p =intval(@$_GET["p"]);
+if($p < 1){
+	$p =1;
 }
+
+//データの位置を取得する
+$st =($p -1) * $lim;
+
+//前ページ、次ページの番号の取得
+$prev = $p -1;
+if($prev<1){
+	$prev=1;
+}
+$next = $p +1;
+
+
 
 	//総ページ数の計算
 function pager($db,$id,$name,$comment,$pass){
@@ -26,24 +43,27 @@ $sql = "SELECT * FROM comments ";
 $stmt = $db->query($sql);
 $stmt->execute();
 $count=$stmt->rowCount();
-echo $count;
 	return $count;
 }
 
-function pageno(){
- $pageno ="";
+$pager =pager($db,$id,$name,$comment,$pass);
 
-for($pageno=1; $pageno<=10000){
-	
-while(){	
-	
-	$i = $h+$k;
-	$J = $i+5;
-	$k = $J ++;
+//掲示板部分の表示
+function ALLDATA($db,$id,$name,$comment,$pass,$st,$pager){
+	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc");
+	$sth->execute();
+	return $sth;
 }
-echo <a href=\"$PHP_SELF?".$pageno."=".$pageno."\">".$pageno." </a>
-}
-}
+
+
+
+//function pager($id,$j){
+
+	//for($i=1; $i<=$j; $i ++){
+		//echo '<input type="submit" value=" '.$i.' " name="submit" />　';
+//	}
+//return $pa;
+//}
 
 
 //書き込み部分の表示
