@@ -11,16 +11,18 @@
 
 <div class="sample-contents">
 <h2>掲示板</h2>
+<h3><?php echo $user_name; ?>としてログイン中です。</h3>
+<a href ="view_logout.php">ログアウト</a><br />
+
+<div style ="color:red">
+<?php echo $comp_msg; ?>
+</div>
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <h2>コメントフォーム</h2>
-  <form method="post" action="index.php " >
-		<label for="name">　名前　:</label>
-		<input type="text" id="name" name="name" value="<?php echo $name; ?>"/><br />
-<?php if (empty($name) && !empty($action)) { ?>
-		<div style ="color:red">名前を入力して下さい！</div>
-<?php } ?>
+
+	<form method="post" action="index.php" >
 		<label for="comment">コメント:</label>
 		<textarea id="comment" name="comment"  cols="30" rows="5"><?php echo $comment; ?></textarea><br />
 <?php if (empty($comment) && !empty($action)) { ?>

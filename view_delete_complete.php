@@ -22,7 +22,7 @@
 </div>
 <?php
 //掲示板部分の表示
-require_once 'view_bbs.php';
+require_once 'view_bbs2.php';
 ?>	
 </sdiv><!-- waku_END -->
 

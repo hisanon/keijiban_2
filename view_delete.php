@@ -38,7 +38,7 @@
 
 <?php
 //掲示板部分の表示
-require_once 'view_bbs.php';
+require_once 'view_bbs2.php';
 ?>	
 </div>
 </div><!-- waku_END -->
