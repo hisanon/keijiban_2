@@ -1,59 +1,58 @@
 <?php 
 session_start();
 require_once 'model.php';
-//$action ="shingup";
 
-// echo $action; 
+ echo $action; 
 
-$login = SHINGUP ($user_name,$mail,$user_pass,$login);
+//$login = SHINGUP ($db,$user_name,$user_pass);
 
 	switch($action){
 		//会員登録画面
+		case "shingup":
 		default:
-			//ログイン画面確認
-			if($login == false){
-				//パス入力のチェック
-				if(!empty($user_pass)) {
-					$action ="";
-					$action ='shingup_coufirm';
-					require_once 'view_shingup_confirm.php';
-				}
-				else{
-				//入力されていなかったら戻る
-				require_once 'view_shingup.php';
-				}
+			//コメントの入力確認
+			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
+				$action ='shingup_coufirm';
+				require_once 'view_shingup_confirm.php';
 			}
 			else{
-				$error_msg = $_SESSION['user_name'].'としてログイン中です。<br />ログアウトしてから登録して下さい。';
+				//入力されていなかったら戻る
+				$ec ="ec";
 				require_once 'view_shingup.php';
 			}
-
 		break;
 		
 		case "shingup_complete":
 			//会員登録の実行、完了画面の表示
+			$user_name =$_SESSION['user_name'];
+			$user_name =$_POST['user_name'];
 			$sth= INSERTUSER($db,$user_name,$mail,$user_pass);
-			$comp_msg='会員登録が完了しました。ログインを行って下さい';
-			$user_name ="";
-			$user_pass ="";
+			$comp_msg=$user_name.'会員登録が完了しました。ログインを行って下さい';
 			$action ="login";
 			require_once 'view_login.php';
 		break;
 
 		case "login":
 			//ログイン画面
-			$action ="login";
-			require_once 'view_login.php';
+			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
+				$action ="login_complete";
+				require_once 'index.php';
+			}
+			else{
+				//入力されていなかったら戻る
+				$ec ="action";
+				require_once 'view_login.php';
+			}
 		break;
 
 		case "login_complete":
-			$login = SHINGUP ($user_name,$user_pass,$login);
+		//ログイン画面確認
+			$name =$_POST['name'];
+			$login = SHINGUP($db,$user_name,$user_pass);
+
+		if($login == True){ 
 			//ログイン画面確認
-			if($login == true){
 				$comp_msg='ログインが完了しました。';
-				$pass ="";
-				$name ="";
-				$action ="";
 				require_once 'view.php';
 			}
 			else{
@@ -111,7 +110,11 @@ $login = SHINGUP ($user_name,$mail,$user_pass,$login);
 			}
 		break;
 		
-		case "":
+		case "first":
+			require_once 'view.php';
+		break;
+		
+		default:
 			//初期値
 			require_once 'view.php';				
 		break;

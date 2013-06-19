@@ -26,21 +26,22 @@ echo $error_msg; ?>
   <form method="post" action="index.php " >
 		<label for="user_name">　　名前　:</label>
 		<input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>"/><br />
-<?php if (empty($user_name) && !empty($action)) { ?>
+<?php if (empty($user_name) && !empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="mail">　アドレス:</label>
 		<input type="text" id="mail"  name="mail" value="<?php echo $mail; ?>"/><br />
-<?php if (empty($mail) && !empty($action)) { ?>
+<?php if (empty($mail) && !empty($ec)) { ?>
 		<div style ="color:red">アドレスを入力して下さい！</div>
 <?php } ?>
 		<label for="pass">パスワード:</label>
 		<input type="pass" id="pass" name="user_pass" value="<?php echo $user_pass; ?>" /><br />
-<?php if (empty($user_pass) && !empty($action)) { ?>
+<?php if (empty($user_pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
 		　　　　　　　<input type="submit" value="確認" name="submit" />
 		<input type="hidden" value="shingup" name="action">
+		<input type="hidden" value="ec" name="ec">
 	</form>
 <?php } ?>
 		

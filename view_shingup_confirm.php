@@ -20,9 +20,9 @@
 パスワード：<?php echo $user_pass; ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">
-<input type="hidden" name="name" value="<?php echo $name; ?>">
+<input type="hidden" name="user_name" value="<?php echo $user_name; ?>">
 <input type="hidden" name="mail" value="<?php echo $mail; ?>">
-<input type="hidden" name="pass" value="<?php echo $pass; ?>">
+<input type="hidden" name="user_pass" value="<?php echo $user_pass; ?>">
 <input type="hidden" name="action" value="shingup_complete">
 　　　　　　　　<input type="submit" value="登録"></form>
 <br />

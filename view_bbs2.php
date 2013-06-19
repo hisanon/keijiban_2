@@ -11,22 +11,27 @@
 	$sth= ALLDATA($db,$id,$name,$comment,$pass,$st,$lim);
 	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 		
-	$id = $row['id'];
-	$name =$row['name'];
+	$user_id = $row['user_id'];
 	$comment =$row['comment'];
 	$delete_pass =$row['pass'];
 	$time = $row['time'];
+	
+		$sth= NAMEDATA($db,$user_id);
+	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
+	
+		$user_name =$row['user_name'];
+	
 	
 ?>
 
 	<tr>
 	<td><?php echo $time; ?></td>
-	<td><?php echo $name; ?></td>
+	<td><?php echo $user_name; ?></td>
 	<td><?php echo nl2br ($comment); ?></td>
 	<td>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
-		<input type="hidden" value="<?php echo $name; ?>" name="name" />
+		<input type="hidden" value="<?php echo $user_name; ?>" name="user_name" />
 		<input type="hidden" value="<?php echo $comment; ?>" name="comment" />
 		<input type="hidden" value="<?php echo $delete_pass; ?>" name="delete_pass" />
 		<input type="hidden" value="<?php echo $time; ?>" name="time" />
@@ -37,6 +42,7 @@
 	</tr>
 
 <?php
+}
 }?>
 </table>
 <?php 

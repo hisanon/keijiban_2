@@ -11,7 +11,7 @@
 
 <div class="sample-contents">
 <h2>ログアウト</h2>
-<h2><?php echo $user_name; ?>の名前でログイン中です。<br />ログアウトしてもよろしいですか？</h2>
+<h2><?php echo $_SESSION['user_name']; ?>の名前でログイン中です。<br />ログアウトしてもよろしいですか？</h2>
 
 <form method="post" action="index.php " >
 <input type="submit" value="はい" name="submit" />

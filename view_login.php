@@ -16,8 +16,8 @@
 <?php echo $eerror_msg; ?>
 </div><br/>
 
-<?php echo $_SESSION['user_name']; ?>
-
+<?php echo $_SESSION['user_name'].$_SESSION['user_pass']; ?>
+<br/>
 <a href ="view_shingup.php">会員登録</a><br />
 
   <form method="post" action="index.php " >
@@ -31,13 +31,13 @@
 <?php if (empty($mail) && !empty($action)) { ?>
 		<div style ="color:red">アドレスを入力して下さい！</div>
 <?php } ?>
-		<label for="pass">パスワード:</label>
-		<input type="pass" id="pass" name="pass" value="<?php echo $pass; ?>" /><br />
-<?php if (empty($pass) && !empty($action)) { ?>
+		<label for="user_pass">パスワード:</label>
+		<input type="pass" id="user_pass" name="user_pass" value="<?php echo $user_pass; ?>" /><br />
+<?php if (empty($user_pass) && !empty($action)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
 		　　　　　　　<input type="submit" value="ログイン" name="submit" />
-		<input type="hidden" value="shingup_complete" name="action">
+		<input type="hidden" value="login_complete" name="action">
 	</form>
 
 <br /><br />

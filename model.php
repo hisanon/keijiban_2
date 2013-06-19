@@ -4,8 +4,9 @@ require_once 'db.php';
 
 //POSTの取得
 $action =$_POST['action'];
+$ec = $_POST['ec'];
 
-	$id = $_POST['id'];
+	$user_id = $_POST['user_id'];
 	$comment =$_POST['comment'];
 	$time = $_POST['time'];
 	$delete_pass = $_POST['delete_pass'];
@@ -15,9 +16,9 @@ $action =$_POST['action'];
 	$user_name =$_POST['user_name'];
 
 //セッションのセット
-if(isset($user_name)){
+if(isset($user_name) && isset($user_id)){
 	$_SESSION['user_name']= $user_name;
-	$_SESSION['user_pass']= $user_pass;
+	$_SESSION['user_id']= $user_id;
 	$login = True;
 }	
 	
@@ -52,12 +53,14 @@ catch(PDOException $e){
 	return $sth;
 }
 
+
 //会員情報を確認
-function SHINGUP ($db,$user_name,$mail,$user_pass){
-		$sth = $db -> query("SELECT user_name,user_pass FROM USERS WHERE user_name='$user_name' AND user_pass='$user_pass'
-		") or die('ERROR!2');
+function SHINGUP($db,$user_name,$user_pass){
+	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE user_name ='$user_name' AND user_pass = '$user_pass'") or die('ERROR!2');
 		$sth->execute();
-		if($sth ->rowCount(1)){ 
+		$cnt =$sth ->rowCount();
+		if($cnt == 1){ 
+			$user_id =$row['user_id'];
 			$login = True;
 		}
 		else{
@@ -76,11 +79,19 @@ function COUNTS($db,$name,$comment,$pass){
 }
 
 //掲示板部分の表示
-function ALLDATA($db,$id,$name,$comment,$pass,$st,$lim){
+function ALLDATA($db,$name,$comment,$pass,$st,$lim){
 	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc LIMIT $st,$lim");
 	$sth->execute();
 	return $sth;
 }
+
+//名前の表示
+function NAMEDATA($db,$user_id){
+	$sth =$db->prepare("SELECT  FROM USERS WHERE user_id ='$user_id' ");
+	$sth->execute();
+	return $sth;
+}
+
 
 //会員登録部分の表示
 function INSERTUSER($db,$name,$mail,$pass){
