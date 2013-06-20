@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -15,12 +16,12 @@
 <h2>新規会員情報確認</h2>
  
 <!---書き込み内容--->
-　　名前　：<?php echo $user_name; ?> <br />
+　　名前　：<?php echo $name; ?> <br />
 　アドレス：<?php echo $mail; ?> <br />
 パスワード：<?php echo $user_pass; ?> <br />
-この内容で書き込みます。
+この内容で登録します。
 <form method ="post" action ="index.php">
-<input type="hidden" name="user_name" value="<?php echo $user_name; ?>">
+<input type="hidden" name="name" value="<?php echo $name; ?>">
 <input type="hidden" name="mail" value="<?php echo $mail; ?>">
 <input type="hidden" name="user_pass" value="<?php echo $user_pass; ?>">
 <input type="hidden" name="action" value="shingup_complete">

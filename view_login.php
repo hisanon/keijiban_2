@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -13,17 +14,19 @@
 <h2>ログイン画面</h2>
 
 <div style ="color:red">
-<?php echo $eerror_msg; ?>
-</div><br/>
+<?php echo $error_msg.$comp_msg; ?>
+</div>
 
-<?php echo $_SESSION['user_name'].$_SESSION['user_pass']; ?>
-<br/>
-<a href ="view_shingup.php">会員登録</a><br />
+<?php echo $_SESSION['user_name'].'/'.$_SESSION['user_id'].'/'.$user_id.'/'.$name; ?>
+
+<a href ="view_shingup.php">会員登録</a><br /><br />
+
+//<?php echo $user_pass.'/'. $mail; ?>
 
   <form method="post" action="index.php " >
-		<label for="user_name">　　名前　:</label>
-		<input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>"/><br />
-<?php if (empty($user_name) && !empty($action)) { ?>
+		<label for="name">　　名前　:</label>
+		<input type="text" id="name" name="name" value="<?php echo $name; ?>"/><br />
+<?php if (empty($name) && !empty($action)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="comment">　アドレス:</label>

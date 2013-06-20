@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---削除確認画面--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 

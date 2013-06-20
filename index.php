@@ -2,18 +2,17 @@
 session_start();
 require_once 'model.php';
 
+		$login = SHINGUP($db,$name,$user_pass,$mail);
+		
  echo $action; 
-
-//$login = SHINGUP ($db,$user_name,$user_pass);
 
 	switch($action){
 		//会員登録画面
 		case "shingup":
-		default:
-			//コメントの入力確認
-			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
-				$action ='shingup_coufirm';
-				require_once 'view_shingup_confirm.php';
+			//会員情報のの入力確認
+			if(!empty($name) && !empty($mail) && !empty($user_pass)){
+				$action ="shingup_complete";
+			require_once 'view_shingup_confirm.php';
 			}
 			else{
 				//入力されていなかったら戻る
@@ -24,9 +23,7 @@ require_once 'model.php';
 		
 		case "shingup_complete":
 			//会員登録の実行、完了画面の表示
-			$user_name =$_SESSION['user_name'];
-			$user_name =$_POST['user_name'];
-			$sth= INSERTUSER($db,$user_name,$mail,$user_pass);
+			$sth= INSERTUSER($db,$name,$mail,$user_pass);
 			$comp_msg=$user_name.'会員登録が完了しました。ログインを行って下さい';
 			$action ="login";
 			require_once 'view_login.php';
@@ -36,6 +33,7 @@ require_once 'model.php';
 			//ログイン画面
 			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
 				$action ="login_complete";
+				$user_name=$_SESSION['user_name'];
 				require_once 'index.php';
 			}
 			else{
@@ -47,18 +45,19 @@ require_once 'model.php';
 
 		case "login_complete":
 		//ログイン画面確認
-			$name =$_POST['name'];
-			$login = SHINGUP($db,$user_name,$user_pass);
-
-		if($login == True){ 
+		$login = SHINGUP($db,$name,$user_pass,$mail);
+		if($login == True){
 			//ログイン画面確認
-				$comp_msg='ログインが完了しました。';
-				require_once 'view.php';
-			}
-			else{
-				$error_msg ='入力情報が正しくありません。';
-				require_once 'view_login.php';
-			}
+			$comp_msg='ログインが完了しました。';
+			
+			$user_id = GETID($db,$name,$user_pass);
+			
+			require_once 'view.php';
+		}
+		elseif($login == False){
+			$error_msg ='入力情報が正しくありません。';
+			require_once 'view_login.php';
+		}
 		break;
 
 		case "logout":
@@ -68,8 +67,7 @@ require_once 'model.php';
 
 		case "logout_complete":
 			//ログアウトの実行
-				//unset($_SESSION['user_name']);
-				$_SESSION = array();
+			$_SESSION = array();
 			$action ="login";
 			require_once 'view_login.php';
 		break;
@@ -88,7 +86,7 @@ require_once 'model.php';
 
 		case "complete":
 			//登録の実行、完了画面の表示
-			$sth= INSERTBBS($db,$user_name,$comment,$pass);
+			$sth= INSERTBBS($db,$user_id,$comment,$pass);
 			require_once 'view_complete.php';
 		break;
 		
@@ -108,10 +106,6 @@ require_once 'model.php';
 			//エラーの場合戻る
 			require_once 'view_delete.php';			
 			}
-		break;
-		
-		case "first":
-			require_once 'view.php';
 		break;
 		
 		default:

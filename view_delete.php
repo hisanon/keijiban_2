@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---削除確認画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -16,7 +17,7 @@
 
 <!---削除確認--->
 この内容を削除します。
-名前：<?php echo $name; ?> <br />
+名前：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 <form method ="post" action ="index.php">
 <input type="text" name="pass" value="">

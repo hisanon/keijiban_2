@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -12,8 +13,9 @@
 <h2>会員登録</h2>
 
 <!--ログインの確認(ログイン状態)-->
-<?php if($login == True){
-echo $error_msg; ?>
+<?php if($login == True){ ?>
+<p>既に<?php echo $_SESSION['user_name'] ?>の名前でログインしています。<br />
+ログアウトしてからログインして下さい。</p>
 <br /><a href ="view_logout.php">ログアウト</a><br />
 <a href ="index.php">掲示板に戻る</a><br />
 <?php } ?>
@@ -24,9 +26,9 @@ echo $error_msg; ?>
 
 <h2>新規会員情報入力</h2>
   <form method="post" action="index.php " >
-		<label for="user_name">　　名前　:</label>
-		<input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>"/><br />
-<?php if (empty($user_name) && !empty($ec)) { ?>
+		<label for="name">　　名前　:</label>
+		<input type="text" id="name" name="name" value="<?php echo $name; ?>" /><br />
+<?php if (empty($name) && !empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="mail">　アドレス:</label>
@@ -34,8 +36,8 @@ echo $error_msg; ?>
 <?php if (empty($mail) && !empty($ec)) { ?>
 		<div style ="color:red">アドレスを入力して下さい！</div>
 <?php } ?>
-		<label for="pass">パスワード:</label>
-		<input type="pass" id="pass" name="user_pass" value="<?php echo $user_pass; ?>" /><br />
+		<label for="user_pass">パスワード:</label>
+		<input type="pass" id="user_pass" name="user_pass" value="<?php echo $user_pass; ?>" /><br />
 <?php if (empty($user_pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!---掲示板部分の表示--->
 <table border="1" width="500" cellspacing="0" cellpadding="5">
 	<tr>
@@ -8,20 +9,20 @@
 		全コメント数<?php echo $dtcnt; ?>件
 	
 <?php
-	$sth= ALLDATA($db,$id,$name,$comment,$pass,$st,$lim);
+	$sth= ALLDATA($db,$st,$lim);
 	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
-		
+	
+	$id = $row['id'];
 	$user_id = $row['user_id'];
 	$comment =$row['comment'];
 	$delete_pass =$row['pass'];
 	$time = $row['time'];
 	
-		$sth= NAMEDATA($db,$user_id);
-	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
+	$sth2= NAMEDATA($db,$user_id);
+	$row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
-		$user_name =$row['user_name'];
-	
-	
+	$user_name =$row['user_name'];
+
 ?>
 
 	<tr>
@@ -42,7 +43,6 @@
 	</tr>
 
 <?php
-}
 }?>
 </table>
 <?php 

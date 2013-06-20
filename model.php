@@ -7,6 +7,7 @@ $action =$_POST['action'];
 $ec = $_POST['ec'];
 
 	$user_id = $_POST['user_id'];
+	$id = $_POST['id'];
 	$comment =$_POST['comment'];
 	$time = $_POST['time'];
 	$delete_pass = $_POST['delete_pass'];
@@ -14,13 +15,10 @@ $ec = $_POST['ec'];
 	$mail =$_POST['mail'];
 	$user_pass =$_POST['user_pass'];
 	$user_name =$_POST['user_name'];
-
-//セッションのセット
-if(isset($user_name) && isset($user_id)){
-	$_SESSION['user_name']= $user_name;
-	$_SESSION['user_id']= $user_id;
-	$login = True;
-}	
+	$name =$_POST['name'];
+	
+	$user_name=$_SESSION['user_name'];
+	$user_id=$_SESSION['user_id'];
 	
 	//取り出す最大レコード数
 	$lim =5;
@@ -42,10 +40,10 @@ if(isset($user_name) && isset($user_id)){
 	$next = $p +1;
 
 //会員登録	
-function INSERTUSERS($db,$user_name,$mail,$user_pass){
+function INSERTUSERS($db,$name,$mail,$user_pass){
 try{
 	$sth =$db->prepare("INSERT INTO USERS(user_name,mail,user_pass) VALUES( ? , ? , ?)");
-	$sth->execute(array($user_name , $comment , $user_pass ));
+	$sth->execute(array($name , $comment , $user_pass ));
 }
 catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
@@ -55,18 +53,31 @@ catch(PDOException $e){
 
 
 //会員情報を確認
-function SHINGUP($db,$user_name,$user_pass){
-	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE user_name ='$user_name' AND user_pass = '$user_pass'") or die('ERROR!2');
+function SHINGUP($db,$name,$user_pass,$mail){
+	//ユーザー情報の確認
+	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND mail = '$mail' ") or die('ERROR!2');
 		$sth->execute();
 		$cnt =$sth ->rowCount();
 		if($cnt == 1){ 
-			$user_id =$row['user_id'];
+			$user_name =$row['user_name'];
 			$login = True;
 		}
 		else{
+			$error_msg ='この内容は既に登録されています。';
 			$login =False;
 		}
 	return $login;
+}
+
+
+//idの取得
+function GETID($db,$name,$user_pass){
+				$sth =$db->prepare("SELECT * FROM USERS WHERE user_pass ='$user_pass' AND user_name ='$name' ");
+				$sth->execute();
+			$row =$sth->fetch(PDO::FETCH_ASSOC);
+			$user_id =$row['user_id'];
+			
+			return $user_id;
 }
 
 
@@ -79,7 +90,7 @@ function COUNTS($db,$name,$comment,$pass){
 }
 
 //掲示板部分の表示
-function ALLDATA($db,$name,$comment,$pass,$st,$lim){
+function ALLDATA($db,$st,$lim){
 	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc LIMIT $st,$lim");
 	$sth->execute();
 	return $sth;
@@ -87,17 +98,17 @@ function ALLDATA($db,$name,$comment,$pass,$st,$lim){
 
 //名前の表示
 function NAMEDATA($db,$user_id){
-	$sth =$db->prepare("SELECT  FROM USERS WHERE user_id ='$user_id' ");
-	$sth->execute();
-	return $sth;
+	$sth2 =$db->prepare("SELECT * FROM USERS WHERE user_id ='$user_id' ");
+	$sth2->execute();
+	return $sth2;
 }
 
 
 //会員登録部分の表示
-function INSERTUSER($db,$name,$mail,$pass){
+function INSERTUSER($db,$user_name,$mail,$pass){
 try{
 	$sth =$db->prepare("INSERT INTO USERS(user_name,mail,user_pass) VALUES( ? , ? , ?)");
-	$sth->execute(array($name , $mail , $pass ));
+	$sth->execute(array($user_name , $mail , $pass ));
 }
 catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
@@ -107,10 +118,10 @@ catch(PDOException $e){
 
 
 //書き込み部分の表示
-function INSERTBBS($db,$name,$comment,$pass){
+function INSERTBBS($db,$user_id,$comment,$pass){
 try{
-	$sth =$db->prepare("INSERT INTO comments(name,comment,pass) VALUES( ? , ? , ?)");
-	$sth->execute(array($name , $comment , $pass ));
+	$sth =$db->prepare("INSERT INTO comments(comment,pass,user_id) VALUES( ? , ? , ?)");
+	$sth->execute(array($comment , $pass ,$user_id));
 }
 catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
