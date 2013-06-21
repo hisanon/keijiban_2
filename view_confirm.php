@@ -12,13 +12,13 @@
 
 <div class="sample-contents">
 <h2>掲示板</h2>
-<h3><?php echo $user_name; ?>としてログイン中です。</h3>
+<h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
 <a href ="view_logout.php">ログアウト</a><br />
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---書き込み内容--->
-名前：<?php echo $_SESSION['user_name']; ?> <br />
+名前：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 削除パス：<?php echo $pass; ?> <br />
 この内容で書き込みます。

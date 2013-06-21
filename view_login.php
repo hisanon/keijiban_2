@@ -21,8 +21,6 @@
 
 <a href ="view_shingup.php">会員登録</a><br /><br />
 
-//<?php echo $user_pass.'/'. $mail; ?>
-
   <form method="post" action="index.php " >
 		<label for="name">　　名前　:</label>
 		<input type="text" id="name" name="name" value="<?php echo $name; ?>"/><br />

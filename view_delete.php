@@ -16,8 +16,8 @@
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---削除確認--->
-この内容を削除します。
-名前：<?php echo $user_name; ?> <br />
+この内容を削除します。<br/>
+　名前　：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 <form method ="post" action ="index.php">
 <input type="text" name="pass" value="">
@@ -29,9 +29,8 @@
 <input type="submit" value="削除"></form>
 
 <!---パスワードの確認--->
-<?php if ($action =="delete2"){ ?>
-<div style ="color:red">削除パスが間違っています。</div>
-<?php } ?> 
+<div style ="color:red"><?php echo $error_msg; ?> </div>
+
 
 <a href ="index.php">戻る</a>
 

@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+require_once 'model.php'; ?>
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -12,8 +13,13 @@
 <div class="sample-contents">
 <h2>会員登録</h2>
 
+<div style ="color:red">
+<?php echo $error_msg; ?>
+</div><br />
+
 <!--ログインの確認(ログイン状態)-->
-<?php if($login == True){ ?>
+<?php $login=LOGIN($user_name,$user_id);
+if($login == True){ ?>
 <p>既に<?php echo $_SESSION['user_name'] ?>の名前でログインしています。<br />
 ログアウトしてからログインして下さい。</p>
 <br /><a href ="view_logout.php">ログアウト</a><br />

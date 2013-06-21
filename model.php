@@ -11,9 +11,10 @@ $ec = $_POST['ec'];
 	$comment =$_POST['comment'];
 	$time = $_POST['time'];
 	$delete_pass = $_POST['delete_pass'];
-	$pass =$_POST['pass'];
+	$delete_user_name =$_POST['delete_user_name'];
 	$mail =$_POST['mail'];
 	$user_pass =$_POST['user_pass'];
+	$pass =$_POST['pass'];
 	$user_name =$_POST['user_name'];
 	$name =$_POST['name'];
 	
@@ -38,6 +39,7 @@ $ec = $_POST['ec'];
 		$prev=1;
 	}
 	$next = $p +1;
+	
 
 //会員登録	
 function INSERTUSERS($db,$name,$mail,$user_pass){
@@ -52,21 +54,35 @@ catch(PDOException $e){
 }
 
 
+//ユーザー認証
+function LOGIN($user_name,$user_id){
+	if(!empty($user_name) && !empty($user_id)){
+		$login = True;
+	}
+	else{
+		$login =False;
+	}
+	return $login;
+}
+
+
 //会員情報を確認
-function SHINGUP($db,$name,$user_pass,$mail){
+function SHINGUP($db,$user_pass,$mail,$no){
 	//ユーザー情報の確認
 	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND mail = '$mail' ") or die('ERROR!2');
 		$sth->execute();
 		$cnt =$sth ->rowCount();
-		if($cnt == 1){ 
+		if($cnt == $no){ 
 			$user_name =$row['user_name'];
-			$login = True;
+			$user_pass =$row['user_pass'];
+			$_SESSION['user_name']=$user_name;
+			$shingup =True;
 		}
 		else{
 			$error_msg ='この内容は既に登録されています。';
-			$login =False;
+			$singup =False;
 		}
-	return $login;
+	return $shingup.$user_name;
 }
 
 
@@ -76,8 +92,9 @@ function GETID($db,$name,$user_pass){
 				$sth->execute();
 			$row =$sth->fetch(PDO::FETCH_ASSOC);
 			$user_id =$row['user_id'];
+			$user_name =$row['user_name'];
 			
-			return $user_id;
+			return $user_id.$user_name;
 }
 
 

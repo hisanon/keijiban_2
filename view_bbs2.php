@@ -32,10 +32,9 @@
 	<td>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
-		<input type="hidden" value="<?php echo $user_name; ?>" name="user_name" />
+		<input type="hidden" value="<?php echo $user_name; ?>" name="delete_user_name" />
 		<input type="hidden" value="<?php echo $comment; ?>" name="comment" />
 		<input type="hidden" value="<?php echo $delete_pass; ?>" name="delete_pass" />
-		<input type="hidden" value="<?php echo $time; ?>" name="time" />
 		<input type="hidden" value="delete" name="action" />
 		<input type="submit" value="削除" name="submit" />
 		</form>
