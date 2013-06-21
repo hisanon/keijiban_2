@@ -20,7 +20,7 @@
 <!---書き込み内容--->
 名前：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
-削除パス：<?php echo $pass; ?> <br />
+削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">
 <input type="hidden" name="name" value="<?php echo $user_name; ?>">
@@ -29,7 +29,7 @@
 <input type="hidden" name="action" value="complete">
 <input type="hidden" value="ec" name="ec">
 <input type="submit" value="送信"></form>
-<br />
+
 <a href ="index.php">戻る</a>
 
 </div>

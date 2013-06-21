@@ -12,7 +12,7 @@
 
 <div class="sample-contents">
 <h2>掲示板</h2>
-<h3><?php echo $_SESSION['user_name'].'/'.$_SESSION['user_id']; ?>としてログイン中です。</h3>
+<h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
 
 <div style ="color:red">
 <?php echo $comp_msg.$error_msg; ?>
@@ -31,7 +31,7 @@
 		<div style ="color:red">コメントを入力して下さい！</div>
 <?php } ?>
 		<label for="pass">削除パス:</label>
-		<input type="pass" id="pass" name="pass" value="<?php echo $pass; ?>" /><br />
+		<input type="password" id="pass" name="pass" maxlength="4" value="<?php echo $pass; ?>" /><br />
 <?php if (empty($pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>

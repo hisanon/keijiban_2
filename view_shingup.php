@@ -43,7 +43,7 @@ if($login == True){ ?>
 		<div style ="color:red">アドレスを入力して下さい！</div>
 <?php } ?>
 		<label for="user_pass">パスワード:</label>
-		<input type="pass" id="user_pass" name="user_pass" value="<?php echo $user_pass; ?>" /><br />
+		<input type="password" id="user_pass" name="user_pass" maxlength="8" value="<?php echo $user_pass; ?>" /><br />
 <?php if (empty($user_pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>

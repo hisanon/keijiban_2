@@ -40,12 +40,19 @@ $ec = $_POST['ec'];
 	}
 	$next = $p +1;
 	
+//アドレスのチェック
+	$ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail);
+
+//半角の変更
+$mail_b = mb_convert_kana($mail, "a", "UTF-8");
+$user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");
+
 
 //会員登録	
-function INSERTUSERS($db,$name,$mail,$user_pass){
+function INSERTUSERS($db,$name,$mail_b,$user_pass_b){
 try{
 	$sth =$db->prepare("INSERT INTO USERS(user_name,mail,user_pass) VALUES( ? , ? , ?)");
-	$sth->execute(array($name , $comment , $user_pass ));
+	$sth->execute(array($name , $mail_b , $user_pass_b ));
 }
 catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
@@ -67,22 +74,22 @@ function LOGIN($user_name,$user_id){
 
 
 //会員情報を確認
-function SHINGUP($db,$user_pass,$mail,$no){
+function SHINGUP($db,$user_pass,$mail_b,$no){
 	//ユーザー情報の確認
-	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND mail = '$mail' ") or die('ERROR!2');
+	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND mail = '$mail_b' ") or die('ERROR!2');
 		$sth->execute();
 		$cnt =$sth ->rowCount();
 		if($cnt == $no){ 
 			$user_name =$row['user_name'];
 			$user_pass =$row['user_pass'];
-			$_SESSION['user_name']=$user_name;
+			
 			$shingup =True;
 		}
 		else{
 			$error_msg ='この内容は既に登録されています。';
 			$singup =False;
 		}
-	return $shingup.$user_name;
+	return $shingup;
 }
 
 
@@ -94,7 +101,7 @@ function GETID($db,$name,$user_pass){
 			$user_id =$row['user_id'];
 			$user_name =$row['user_name'];
 			
-			return $user_id.$user_name;
+			return array($user_id,$user_name);
 }
 
 

@@ -20,7 +20,7 @@
 　名前　：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 <form method ="post" action ="index.php">
-<input type="text" name="pass" value="">
+<input type="password" name="pass" maxlength="4" value="">
 <input type="hidden" name="name" value="<?php echo $name; ?>">
 <input type="hidden" name="comment" value="<?php echo $comment; ?>">
 <input type="hidden" name="delete_pass" value="<?php echo $delete_pass; ?>">

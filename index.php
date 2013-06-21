@@ -2,10 +2,6 @@
 session_start();
 require_once 'model.php';
 		
-echo $_SESSION['user_name'].'/'.$_SESSION['user_id'].'/'.$user_id.'/'.$name.'<br/.>';
-
- echo $action; 
-
 	switch($action){
 		//会員登録画面
 		case "shingup":
@@ -14,8 +10,14 @@ echo $_SESSION['user_name'].'/'.$_SESSION['user_id'].'/'.$user_id.'/'.$name.'<br
 				$no ='o';
 				$shingup =SHINGUP($db,$user_pass,$mail,$no);
 				if($shingup == True){
-					$action ="shingup_complete";
-					require_once 'view_shingup_confirm.php';
+					if ($ret) {
+						$action ="shingup_complete";
+						require_once 'view_shingup_confirm.php';
+					}
+					elseif(!$ret) {
+						$error_msg = 'アドレスを正しい形式で入力して下さい。';
+						require_once 'view_shingup.php';
+					}
 				}
 				else{
 					$error_msg ='このユーザー名は既に登録されています。';
@@ -59,12 +61,13 @@ echo $_SESSION['user_name'].'/'.$_SESSION['user_id'].'/'.$user_id.'/'.$name.'<br
 		$shingup =SHINGUP($db,$user_pass,$mail,$no);
 		if($shingup == True){
 			//ログイン画面確認
-			
+			$user_name = $_SESSION['user_name'];
 			$comp_msg='ログインが完了しました。';
 		
-		$user_id = GETID($db,$name,$user_pass);
+		list($user_id,$user_name) = GETID($db,$name,$user_pass);
+			
 			$_SESSION['user_id']=$user_id;
-//			$_SESSION['user_name']=$user_name;
+			$_SESSION['user_name']=$user_name;
 			require_once 'view.php';
 		}
 		else{
@@ -82,6 +85,7 @@ echo $_SESSION['user_name'].'/'.$_SESSION['user_id'].'/'.$user_id.'/'.$name.'<br
 			//ログアウトの実行
 			$_SESSION = array();
 			$action ="login";
+			$ec ='ec';
 			require_once 'view_login.php';
 		break;
 	
