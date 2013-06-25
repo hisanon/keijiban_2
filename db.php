@@ -15,10 +15,4 @@
 	die('Connection failed: '.$e->getMessage());
 	}
 	
-		
-	function cutting($db){
-	$cutting = mysqli_close($db);
-	return $cutting;
-	}
-
 ?>

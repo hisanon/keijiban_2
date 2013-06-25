@@ -16,14 +16,11 @@
 <h2>新規会員情報確認</h2>
  
 <!---書き込み内容--->
-　　名前　：<?php echo $name; ?> <br />
-　アドレス：<?php echo $mail; ?> <br />
-パスワード：<?php echo $user_pass; ?> <br />
+　　名前　：<?php echo $_SESSION['user_name']; ?> <br />
+　アドレス：<?php echo $_SESSION['mail']; ?> <br />
+パスワード：<?php echo $_SESSION['user_pass']; ?> <br />
 この内容で登録します。
 <form method ="post" action ="index.php">
-<input type="hidden" name="name" value="<?php echo $name; ?>">
-<input type="hidden" name="mail" value="<?php echo $mail; ?>">
-<input type="hidden" name="user_pass" value="<?php echo $user_pass; ?>">
 <input type="hidden" name="action" value="shingup_complete">
 　　　　　　　　<input type="submit" value="登録"></form>
 <br />

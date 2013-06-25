@@ -33,18 +33,18 @@ if($login == True){ ?>
 <h2>新規会員情報入力</h2>
   <form method="post" action="index.php " >
 		<label for="name">　　名前　:</label>
-		<input type="text" id="name" name="name" value="<?php echo $name; ?>" /><br />
+		<input type="text" id="name" name="name" value="<?php echo $form_g['name']; ?>" /><br />
 <?php if (empty($name) && !empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="mail">　アドレス:</label>
-		<input type="text" id="mail"  name="mail" value="<?php echo $mail; ?>"/><br />
+		<input type="text" id="mail"  name="mail" value="<?php echo $form_g['mail']; ?>"/><br />
 <?php if (empty($mail) && !empty($ec)) { ?>
 		<div style ="color:red">アドレスを入力して下さい！</div>
 <?php } ?>
 		<label for="user_pass">パスワード:</label>
-		<input type="password" id="user_pass" name="user_pass" maxlength="8" value="<?php echo $user_pass; ?>" /><br />
-<?php if (empty($user_pass) && !empty($ec)) { ?>
+		<input type="password" id="user_pass" name="user_pass" maxlength="8" value="" /><br />
+<?php if (empty($form_g['user_pass']) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
 		　　　　　　　<input type="submit" value="確認" name="submit" />

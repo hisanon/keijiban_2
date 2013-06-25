@@ -6,21 +6,13 @@ require_once 'db.php';
 $action =$_POST['action'];
 $ec = $_POST['ec'];
 
-	$user_id = $_POST['user_id'];
-	$id = $_POST['id'];
-	$comment =$_POST['comment'];
-	$time = $_POST['time'];
-	$delete_pass = $_POST['delete_pass'];
-	$delete_user_name =$_POST['delete_user_name'];
-	$mail =$_POST['mail'];
-	$user_pass =$_POST['user_pass'];
-	$pass =$_POST['pass'];
-	$user_name =$_POST['user_name'];
-	$name =$_POST['name'];
+
+	$form_g['user_name']=$_SESSION['user_name'];
+	$form_g['user_id']=$_SESSION['user_id'];
+	$form_g['comment']=$_SESSION['comment'];
+	$form_g['pass']=$_SESSION['pass'];
 	
-	$user_name=$_SESSION['user_name'];
-	$user_id=$_SESSION['user_id'];
-	
+		
 	//取り出す最大レコード数
 	$lim =5;
 
@@ -41,15 +33,22 @@ $ec = $_POST['ec'];
 	$next = $p +1;
 	
 //アドレスのチェック
-	$ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail);
+	$ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $form_g['mail']);
 
 //半角の変更
-$mail_b = mb_convert_kana($mail, "a", "UTF-8");
-$user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");
+$mail_b = mb_convert_kana($form_g['mail'], "a", "UTF-8");
+$user_pass_b = mb_convert_kana($form_g['user_pass'], "a", "UTF-8");
 
+//postの取得
+function INPOST(){
+	
+	return 	$form_g = array("user_id" => "$user_id","id" => "$id","comment" => "$comment","time" => "$time","delete_pass" => "$delete_pass","mail" => "$mail","user_pass" => "$user_pass","pass" => "$pass","user_name" => "$user_name","name" => "$name","delete_user_name" => "$delete_user_name");
+
+	$form_g() = $_POST();
+}
 
 //会員登録	
-function INSERTUSERS($db,$name,$mail_b,$user_pass_b){
+function INSERTUSERS($db,$name,$mail_b,$user_pass){
 try{
 	$sth =$db->prepare("INSERT INTO USERS(user_name,mail,user_pass) VALUES( ? , ? , ?)");
 	$sth->execute(array($name , $mail_b , $user_pass_b ));
@@ -74,14 +73,14 @@ function LOGIN($user_name,$user_id){
 
 
 //会員情報を確認
-function SHINGUP($db,$user_pass,$mail_b,$no){
+function SHINGUP($db,$user_pass,,$no){
 	//ユーザー情報の確認
-	$sth = $db -> prepare ("SELECT user_name, mail,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND mail = '$mail_b' ") or die('ERROR!2');
+	$sth = $db -> prepare ("SELECT user_name,user_pass FROM USERS WHERE  user_pass = '$user_pass' AND user_name = '$user_name' ") or die('ERROR!2');
 		$sth->execute();
 		$cnt =$sth ->rowCount();
 		if($cnt == $no){ 
-			$user_name =$row['user_name'];
-			$user_pass =$row['user_pass'];
+			$form_g['user_name'] =$row['user_name'];
+			$form_g['user_pass'] =$row['user_pass'];
 			
 			$shingup =True;
 		}
@@ -93,7 +92,7 @@ function SHINGUP($db,$user_pass,$mail_b,$no){
 }
 
 
-//idの取得
+//ユーザーidの取得
 function GETID($db,$name,$user_pass){
 				$sth =$db->prepare("SELECT * FROM USERS WHERE user_pass ='$user_pass' AND user_name ='$name' ");
 				$sth->execute();
@@ -101,7 +100,20 @@ function GETID($db,$name,$user_pass){
 			$user_id =$row['user_id'];
 			$user_name =$row['user_name'];
 			
-			return array($user_id,$user_name);
+			return array($form_g['user_id'],$form_g['user_name']);
+}
+
+
+function GETDELETE($db,$id){
+				$sth =$db->prepare("SELECT * FROM USERS WHERE id ='$id' ");
+				$sth->execute();
+			$row =$sth->fetch(PDO::FETCH_ASSOC);
+			
+			$comment =$row['comment'];
+			$delete_pass =$row['pass'];
+			$delete_user_name =$row['user_name'];
+
+			return array($comment,$pass,$user_name);
 }
 
 
@@ -125,19 +137,6 @@ function NAMEDATA($db,$user_id){
 	$sth2 =$db->prepare("SELECT * FROM USERS WHERE user_id ='$user_id' ");
 	$sth2->execute();
 	return $sth2;
-}
-
-
-//会員登録部分の表示
-function INSERTUSER($db,$user_name,$mail,$pass){
-try{
-	$sth =$db->prepare("INSERT INTO USERS(user_name,mail,user_pass) VALUES( ? , ? , ?)");
-	$sth->execute(array($user_name , $mail , $pass ));
-}
-catch(PDOException $e){
-	die('Insert failed: '.$e->getMessage());
-}
-	return $sth;
 }
 
 

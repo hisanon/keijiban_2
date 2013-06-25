@@ -22,6 +22,8 @@
 </div>
 </div>
 <?php
+unset($_SESSION['comment']);
+unset($_SESSION['delete_user_pass']);
 //掲示板部分の表示
 require_once 'view_bbs2.php';
 ?>	

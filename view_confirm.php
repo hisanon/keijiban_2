@@ -18,14 +18,11 @@
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---書き込み内容--->
-名前：<?php echo $user_name; ?> <br />
-コメント：<?php echo nl2br ($comment); ?> <br />
-削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
+名前：<?php echo $form_g['user_name']; ?> <br />
+コメント：<?php echo nl2br ($form_g['comment']); ?> <br />
+削除パス：<?php echo str_repeat('●' , mb_strlen($form_g['pass'])); ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">
-<input type="hidden" name="name" value="<?php echo $user_name; ?>">
-<input type="hidden" name="comment" value="<?php echo $comment; ?>">
-<input type="hidden" name="pass" value="<?php echo $pass; ?>">
 <input type="hidden" name="action" value="complete">
 <input type="hidden" value="ec" name="ec">
 <input type="submit" value="送信"></form>
