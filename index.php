@@ -2,30 +2,28 @@
 session_start();
 require_once 'model.php';
 
-$form_g =INPOST($form_g['']);
-
 		
 	switch($action){
 		//会員登録画面
 		case "shingup":
-			list($name,$mail,$user_id,$user_pass,$user_name) = INPOST($db,$form_g['name'],$form_g['mail'],$form_g['user_id'],$form_g['user_pass'],$form_g['user_name']);
-
-			$name =$_SESSION['name'];
-			$mail =$_SESSION['mail'];
-			$user_pass =$_SESSION['user_pass'];
+			$user_name =$_POST['user_name'];
 			//会員情報のの入力確認
-			if(!empty($name) && !empty($mail) && !empty($user_pass)){
+			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
 				//入力値一致数のチェック
 				$no ='o';
-				$shingup =SHINGUP($db,$user_pass,$name,$no);
+				$shingup =SHINGUP($db,$user_pass_b,$user_name,$no);
 				if($shingup == True){
 					//アドレスのチェック
 					if ($ret) {
 						$action ="shingup_complete";
+						$_SESSION['user_name']=$user_name;
+						$_SESSION['mail']=$mail_b;
+						$_SESSION['user_pass']=$user_pass_b;
+
 						require_once 'view_shingup_confirm.php';
 					}
 					elseif(!$ret) {
-						$error_msg = 'アドレスを正しい形式で入力して下さい。';
+						$error_mail = 'アドレスを正しい形式で入力して下さい。';
 						require_once 'view_shingup.php';
 					}
 				}
@@ -44,20 +42,46 @@ $form_g =INPOST($form_g['']);
 		
 		//登録完了
 		case "shingup_complete":
+			$user_name_s=$_SESSION['user_name'];
+			$mail_s=$_SESSION['mail'];
+			$user_pass_s=$_SESSION['user_pass'];
 			//会員登録の実行、完了画面の表示
-				$sth= INSERTUSER($db,$name,$mail,$user_pass);
+				$sth= INSERTUSERS($db,$user_name_s,$mail_s,$user_pass_s);
 				$comp_msg='会員登録が完了しました。ログインを行って下さい';
 				$action ="login";
+
+				unset($_SESSION['user_name']);
+				unset($_SESSION['mail']);
+				unset($_SESSION['user_pass']);
+
 				require_once 'view_login.php';
 		break;
 		
 
 		//ログイン画面
 		case "login":
+			$user_name =$_POST['user_name'];
+			$user_pass =$_POST['user_pass'];
+			
 			if(!empty($user_name) && !empty($user_pass)){
-				$action ="login_complete";
-				
-				require_once 'index.php';
+				//情報の一致数の確認
+				$no ='1';
+				$shingup =SHINGUP($db,$user_pass,$user_name,$no);
+				//ログインの確認
+				if($shingup == True){
+					//ログイン画面確認
+					$comp_msg='ログインが完了しました。';
+						$_SESSION['user_name']=$user_name;
+					//セッショッンに保管する情報の取得と保存
+					$user_id= GETID($db,$user_name,$user_pass);
+					$_SESSION['user_id']=$user_id;
+					$action ="";
+					require_once 'view.php';
+				}
+				else{
+					$error_msg ='入力情報が正しくありません。';
+					require_once 'view_login.php';
+				}
 			}
 			else{
 				//入力されていなかったら戻る
@@ -67,29 +91,6 @@ $form_g =INPOST($form_g['']);
 			}
 		break;
 
-
-			//ログイン確認
-		case "login_complete":
-			//情報の一致数の確認
-			$no ='1';
-			$shingup =SHINGUP($db,$user_pass,$name,$no);
-			//ログインの確認
-			if($shingup == True){
-				//ログイン画面確認
-				$comp_msg='ログインが完了しました。';
-		
-				//セッショッンに保管する情報の取得
-				list($form_g['user_id'],$form_g['user_name']) = GETID($db,$name,$user_pass);
-			
-				$_SESSION['user_id']=$form_g['user_id'];
-				$_SESSION['user_name']=$form_g['user_name'];
-				require_once 'view.php';
-			}
-			else{
-				$error_msg ='入力情報が正しくありません。';
-				require_once 'view_login.php';
-			}
-		break;
 
 		case "logout":
 			//ログアウトの確認
@@ -107,18 +108,20 @@ $form_g =INPOST($form_g['']);
 		//書き込みが行われた場合
 		case "confirm":
 			//ログイン確認
-			$login=LOGIN($user_name,$user_id);
+			$login=LOGIN();
 			if($login == True){
+				$comment =$_POST['comment'];
+				$pass =$_POST['pass'];			
 				//パス入力のチェック
 				if(!empty($pass)) {
-					$_SESSION['comment']=$form_g['comment'];
-					$_SESSION['pass']=$form_g['pass'];
-				require_once 'view_confirm.php';
+					$_SESSION['comment']=$comment;
+					$_SESSION['pass']=$pass;
+					require_once 'view_confirm.php';
 				}
 				else{
-				//入力されていなかったら戻る
-				$ec = 'ec';
-				require_once 'view.php';
+					//入力されていなかったら戻る
+					$ec = 'ec';
+					require_once 'view.php';
 				}
 			}
 			else{
@@ -126,13 +129,21 @@ $form_g =INPOST($form_g['']);
 				require_once 'view_login.php';
 			}
 		break;
-
+		
 		case "complete":
 			//ログイン確認
-			$login=LOGIN($user_name,$user_id);
+			$login=LOGIN();
 			if($login == True){
+				$comment_s =$_SESSION['comment'];
+				$pass_s =$_SESSION['pass'];
+				$user_id_s =$_SESSION['user_id'];
+										
 				//登録の実行、完了画面の表示
-				$sth= INSERTBBS($db,$user_id,$comment,$pass);
+				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s);
+				
+				unset($_SESSION['comment']);
+				unset($_SESSION['pass']);
+				
 				require_once 'view_complete.php';
 			}
 			else{
@@ -143,18 +154,16 @@ $form_g =INPOST($form_g['']);
 		
 		case "delete":
 			//ログイン確認
-			$login=LOGIN($user_name,$user_id);
+			$login=LOGIN();
 			if($login == True){
+				$id =$_POST['id'];
 				list($comment,$pass,$delete_user_name) = GETDELETE($db,$id);
-					$_SESSION['comment'] =$comment;
-					$_SESSION['delete_user_pass'] =$delete_user_pass;
-
 				//削除ユーザーとコメント記入ユーザーの一致確認
-				if( $delete_user_name == $_SESSION['user_name']){
-					//削除確認画面、pass入力
-					
-					$comment =$_SESSION['comment'];
-					$delete_user_pass =$_SESSION['delete_user_pass'];
+				if( $delete_user_id == $_SESSION['user_id']){
+					$_SESSION['delete_id'] =$id;
+					$_SESSION['delete_comment'] =$delete_comment;
+					$_SESSION['delete_user_pass'] =$delete_pass;
+
 					require_once 'view_delete.php';
 				}
 				else{
@@ -171,7 +180,7 @@ $form_g =INPOST($form_g['']);
 		
 		case "delete2":
 			//ログイン確認
-			$login=LOGIN($user_name,$user_id);
+			$login=LOGIN();
 			if($login == True){
 				//入力passのチェック
 				if ($pass == $delete_pass){
@@ -194,12 +203,12 @@ $form_g =INPOST($form_g['']);
 		
 		default:
 			//ログイン確認
-			$login=LOGIN($user_name,$user_id);
+			$login=LOGIN();
 			if($login == True){
 				//初期値
 				require_once 'view.php';	
 				}
-			else{
+			elseif($login == False){
 				$error_msg ='ログインの確認が取れません。<br/>もう一度ログインし直して下さい。';
 				require_once 'view_login.php';
 			}				

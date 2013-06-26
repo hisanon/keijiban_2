@@ -17,8 +17,10 @@ require_once 'model.php'; ?>
 <?php echo $error_msg; ?>
 </div><br />
 
+<?php echo $res; ?>
+
 <!--ログインの確認(ログイン状態)-->
-<?php $login=LOGIN($user_name,$user_id);
+<?php $login=LOGIN();
 if($login == True){ ?>
 <p>既に<?php echo $_SESSION['user_name'] ?>の名前でログインしています。<br />
 ログアウトしてからログインして下さい。</p>
@@ -33,18 +35,26 @@ if($login == True){ ?>
 <h2>新規会員情報入力</h2>
   <form method="post" action="index.php " >
 		<label for="name">　　名前　:</label>
-		<input type="text" id="name" name="name" value="<?php echo $form_g['name']; ?>" /><br />
-<?php if (empty($name) && !empty($ec)) { ?>
+		<input type="text" id="name" name="user_name" value="<?php echo $user_name; ?>" /><br />
+<?php if (empty($user_name) && !empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="mail">　アドレス:</label>
-		<input type="text" id="mail"  name="mail" value="<?php echo $form_g['mail']; ?>"/><br />
 <?php if (empty($mail) && !empty($ec)) { ?>
-		<div style ="color:red">アドレスを入力して下さい！</div>
+		<input type="text" id="mail"  name="mail" value="<?php echo $mail; ?>"/><br />
+		<div style ="color:red">アドレスを入力して下さい！</div> 
+<?php } 
+elseif (!empty($error_mail) && !empty($ec)) { ?>
+		<input type="text" id="mail"  name="mail" value=""/><br />
+		<div style ="color:red"><?php echo $error_mail; ?></div>
+<?php } 
+else  { ?>
+		<input type="text" id="mail"  name="mail" value=""/><br />
+		<div style ="color:red"><?php echo $error_mail; ?></div>
 <?php } ?>
 		<label for="user_pass">パスワード:</label>
 		<input type="password" id="user_pass" name="user_pass" maxlength="8" value="" /><br />
-<?php if (empty($form_g['user_pass']) && !empty($ec)) { ?>
+<?php if (empty($user_pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
 		　　　　　　　<input type="submit" value="確認" name="submit" />

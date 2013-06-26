@@ -26,12 +26,12 @@
 
 	<form method="post" action="index.php" >
 		<label for="comment">コメント:</label>
-		<textarea id="comment" name="comment"  cols="30" rows="5"><?php echo $form_g[]; ?></textarea><br />
+		<textarea id="comment" name="comment"  cols="30" rows="5"><?php echo $$comment; ?></textarea><br />
 <?php if (empty($comment) && !empty($ec)) { ?>
 		<div style ="color:red">コメントを入力して下さい！</div>
 <?php } ?>
 		<label for="pass">削除パス:</label>
-		<input type="password" id="pass" name="pass" maxlength="4" value="<?php  echo $form_g[]; ?>"><br />
+		<input type="password" id="pass" name="pass" maxlength="4" value="<?php  echo $pass; ?>"><br />
 <?php if (empty($pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>

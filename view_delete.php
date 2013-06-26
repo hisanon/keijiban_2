@@ -16,9 +16,8 @@
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---削除確認--->
-この内容を削除します。<br/>
-　名前　：<?php echo $_SESSION['user_name']; ?> <br />
-コメント：<?php echo nl2br ($_SESSION['comment']); ?> <br />
+このコメントを削除します。<br/>
+コメント：<?php echo nl2br ($_SESSION['delete_comment']); ?> <br />
 <form method ="post" action ="index.php">
 <input type="password" name="pass" maxlength="4" value="">
 <input type="hidden" name="action" value="delete2">

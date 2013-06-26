@@ -18,11 +18,11 @@
 <!---書き込み内容--->
 　　名前　：<?php echo $_SESSION['user_name']; ?> <br />
 　アドレス：<?php echo $_SESSION['mail']; ?> <br />
-パスワード：<?php echo $_SESSION['user_pass']; ?> <br />
+パスワード：<?php echo str_repeat('●' , mb_strlen($_SESSION['user_pass'])); ?> <br />
 この内容で登録します。
 <form method ="post" action ="index.php">
 <input type="hidden" name="action" value="shingup_complete">
-　　　　　　　　<input type="submit" value="登録"></form>
+　　　　　　<input type="submit" value="登録"></form>
 <br />
 <a href ="view_shingup.php">戻る</a>
  

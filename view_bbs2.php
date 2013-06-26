@@ -13,15 +13,15 @@
 	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
 	
 	$id = $row['id'];
+	$time = $row['time'];
 	$user_id = $row['user_id'];
 	$comment =$row['comment'];
-	$delete_pass =$row['pass'];
-	$time = $row['time'];
+
 	
 	$sth2= NAMEDATA($db,$user_id);
 	$row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
-	$delete_user_name =$row['user_name'];
+	$user_name =$row['user_name'];
 
 
 ?>
