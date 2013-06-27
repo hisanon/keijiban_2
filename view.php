@@ -35,6 +35,9 @@
 <?php if (empty($pass) && !empty($ec)) { ?>
 		<div style ="color:red">パスワードを入力して下さい！</div>
 <?php } ?>
+		<label for="image_file">　画像　:</label>
+		<input type="file" id="image_file" name="image_file" /><br />
+
 		　　　　　　　<input type="submit" value="送信" name="submit" />
 		<input type="hidden" value="confirm" name="action">
 	</form>

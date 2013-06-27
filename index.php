@@ -105,15 +105,36 @@ require_once 'model.php';
 			require_once 'view_login.php';
 		break;
 	
+
 		//書き込みが行われた場合
 		case "confirm":
 			//ログイン確認
 			$login=LOGIN();
 			if($login == True){
 				$comment =$_POST['comment'];
-				$pass =$_POST['pass'];			
+				$pass =$_POST['pass'];
+				
 				//パス入力のチェック
 				if(!empty($pass)) {
+					if(!$_FILES['image_file']['error']){
+						$image_type = $_FILES['image_file']['type'];
+						$image_size = $_FILES['image_file']['size'];
+						$image_name = time().'_'.$user_name_s.'_'.$_FILES['image_file'];
+					}
+					else{
+						$image_size == 0;
+						$upload_name = NULL;
+					}
+
+					// イメージファイルがあれば保存する
+					if($image_size > 0 && $image_size < 30000 &&
+					   ($image_type == 'image/gif' || $image_type == 'image/jpeg' || $image_type == 'image/pjpeg' || $image_type == 'image/png')){
+						$upload_image_path = upload_image_path($image_name);
+						move_uploaded_file($_FILES['image_file']['tmp_name'], $upload_image_path);
+					 }
+
+
+					$_SESSION['upload_image_path']=$upload_image_path;
 					$_SESSION['comment']=$comment;
 					$_SESSION['pass']=$pass;
 					require_once 'view_confirm.php';
@@ -135,14 +156,18 @@ require_once 'model.php';
 			$login=LOGIN();
 			if($login == True){
 				$comment_s =$_SESSION['comment'];
+				$upload_image_path_s =$_SESSION['upload_image_path'];
 				$pass_s =$_SESSION['pass'];
 				$user_id_s =$_SESSION['user_id'];
-										
+
+
+
 				//登録の実行、完了画面の表示
-				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s);
+				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s,$upload_image_path_s);
 				
 				unset($_SESSION['comment']);
 				unset($_SESSION['pass']);
+				unset($_SESSION['upload_image_path']);
 				
 				require_once 'view_complete.php';
 			}

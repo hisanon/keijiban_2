@@ -36,6 +36,11 @@ $user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");
 $ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail_b);
 
 
+//イメージファイルの処理
+function upload_image_path($file_name){
+	$image_path = " 'images/upload/'.$file_name";
+	return $image_path;
+}
 
 //会員登録	
 function INSERTUSERS($db,$user_name,$mail_b,$user_pass_b){

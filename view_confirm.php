@@ -20,6 +20,11 @@
 <!---書き込み内容--->
 名前：<?php echo $user_name; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
+<?php if($post_image_name){
+					//$image_path = UPLOAD_IMAGES_PATH.$image_name;
+					$post_image_path = upload_image_path($post_image_name);
+					echo '<p><image width="320px" src="'.$post_image_path.'" />'; ?>
+<br /> <?php } ?>
 削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">

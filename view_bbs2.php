@@ -16,7 +16,7 @@
 	$time = $row['time'];
 	$user_id = $row['user_id'];
 	$comment =$row['comment'];
-
+	$image_file =$row['image_file'];
 	
 	$sth2= NAMEDATA($db,$user_id);
 	$row =$sth2->fetch(PDO::FETCH_ASSOC);
@@ -29,7 +29,8 @@
 	<tr>
 	<td><?php echo $time; ?></td>
 	<td><?php echo $user_name; ?></td>
-	<td><?php echo nl2br ($comment); ?></td>
+	<td><?php echo nl2br ($comment); ?><br/>
+	<?php echo $image_file; ?></td>
 	<td>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
