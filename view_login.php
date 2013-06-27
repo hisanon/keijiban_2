@@ -19,8 +19,6 @@
 
 <a href ="view_shingup.php">会員登録</a><br /><br />
 
-<?php echo $user_name.'/'.$user_pass.'/'.$_SESSION['user_name'].'/'.$_SESSION['user_pass'].'/'.$_SESSION['user_id']; ?>
-
   <form method="post" action="index.php " >
 		<label for="user_name">　　名前　:</label>
 		<input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>"/><br />

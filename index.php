@@ -87,7 +87,7 @@ require_once 'model.php';
 				//入力されていなかったら戻る
 				$ec ="action";
 				require_once 'view_login.php';
-	
+
 			}
 		break;
 
@@ -157,13 +157,14 @@ require_once 'model.php';
 			$login=LOGIN();
 			if($login == True){
 				$id =$_POST['id'];
-				list($comment,$pass,$delete_user_name) = GETDELETE($db,$id);
+				list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
 				//削除ユーザーとコメント記入ユーザーの一致確認
 				if( $delete_user_id == $_SESSION['user_id']){
-					$_SESSION['delete_id'] =$id;
+					$_SESSION['delete_user_id'] =$delete_user_id;
 					$_SESSION['delete_comment'] =$delete_comment;
 					$_SESSION['delete_user_pass'] =$delete_pass;
-
+					$_SESSION['delete_id'] =$id;
+					
 					require_once 'view_delete.php';
 				}
 				else{
@@ -182,10 +183,21 @@ require_once 'model.php';
 			//ログイン確認
 			$login=LOGIN();
 			if($login == True){
+				$pass =$_POST['pass'];
+				$delete_user_id_s=$_SESSION['delete_user_id'];
+				$delete_comment_s=$_SESSION['delete_comment'];
+				$delete_pass_s=$_SESSION['delete_user_pass'];
+				$delete_id_s=$_SESSION['delete_id'];
 				//入力passのチェック
-				if ($pass == $delete_pass){
+				if ($pass == $delete_pass_s){
 				//削除の実行
-				$sth = DELETEBBS($db,$id);
+				$sth = DELETEBBS($db,$delete_id_s);
+				
+				unset($_SESSION['delete_comment']);
+				unset($_SESSION['delete_user_pass']);
+				unset($_SESSION['delete_user_id']);
+				unset($_SESSION['delete_id']);
+				
 				//完了画面
 				require_once 'view_delete_complete.php';
 				}

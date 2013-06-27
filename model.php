@@ -5,26 +5,6 @@ require_once 'db.php';
 //POSTの取得
 $action =$_POST['action'];
 $ec = $_POST['ec'];
-
-
-$user_id =$_POST['$user_id'];
-$id =$_POST['$id'];
-$comment =$_POST['$comment'];
-$time =$_POST['$time'];
-$delete_pass =$_POST['$delete_pass'];
-$mail =$_POST['$mail'];
-$user_pass =$_POST['$user_pass'];
-$pass =$_POST['$pass'];
-$user_name =$_POST['$user_name'];
-$name =$_POST['$name'];
-$delete_user_name =$_POST['$delete_user_name'];
-
-
-	$user_name=$_SESSION['user_name'];
-	$user_id=$_SESSION['user_id'];
-	$comment=$_SESSION['comment'];
-	$pass=$_SESSION['pass'];
-	
 		
 	//取り出す最大レコード数
 	$lim =5;
@@ -111,7 +91,7 @@ function GETID($db,$user_name_s,$user_pass_s){
 
 
 function GETDELETE($db,$id){
-				$sth =$db->prepare("SELECT * FROM USERS WHERE id ='$id' ");
+				$sth =$db->prepare("SELECT * FROM comments WHERE id ='$id' ");
 				$sth->execute();
 			$row =$sth->fetch(PDO::FETCH_ASSOC);
 			
@@ -167,7 +147,7 @@ try{
 catch(PDOException $e){
 	die('Delete failed: '.$e->getMessage());
 	}
-	return $result;
+	return $sth;
 }
 
 ?>
