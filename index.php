@@ -116,10 +116,12 @@ require_once 'model.php';
 				
 				//パス入力のチェック
 				if(!empty($pass)) {
+
+					//ファイルの処理
 					if(!$_FILES['image_file']['error']){
 						$image_type = $_FILES['image_file']['type'];
 						$image_size = $_FILES['image_file']['size'];
-						$image_name = time().'_'.$user_name_s.'_'.$_FILES['image_file'];
+						$image_name = $now_datetime.'_'.$user_id_s.$_FILES['image_file']['name'];
 					}
 					else{
 						$image_size == 0;
@@ -127,16 +129,17 @@ require_once 'model.php';
 					}
 
 					// イメージファイルがあれば保存する
-					if($image_size > 0 && $image_size < 30000 &&
+					if($image_size > 0 && $image_size < UPLOAD_IMAGE_MAX_SIZE &&
 					   ($image_type == 'image/gif' || $image_type == 'image/jpeg' || $image_type == 'image/pjpeg' || $image_type == 'image/png')){
 						$upload_image_path = upload_image_path($image_name);
-						move_uploaded_file($_FILES['image_file']['tmp_name'], $upload_image_path);
+						@move_uploaded_file($_FILES['image_file']['tmp_name'], $upload_image_path);
 					 }
 
+						@move_uploaded_file($_FILES['image_file']['name'], $upload_image_path);
 
-					$_SESSION['upload_image_path']=$upload_image_path;
 					$_SESSION['comment']=$comment;
 					$_SESSION['pass']=$pass;
+					$_SESSION['image_name']=$image_name;
 					require_once 'view_confirm.php';
 				}
 				else{
@@ -151,6 +154,8 @@ require_once 'model.php';
 			}
 		break;
 		
+		
+		//書き込みの実行
 		case "complete":
 			//ログイン確認
 			$login=LOGIN();
@@ -159,15 +164,16 @@ require_once 'model.php';
 				$upload_image_path_s =$_SESSION['upload_image_path'];
 				$pass_s =$_SESSION['pass'];
 				$user_id_s =$_SESSION['user_id'];
+				$image_name_s =$_SESSION['image_name'];
 
 
 
 				//登録の実行、完了画面の表示
-				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s,$upload_image_path_s);
+				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s,$image_name_s);
 				
 				unset($_SESSION['comment']);
 				unset($_SESSION['pass']);
-				unset($_SESSION['upload_image_path']);
+				unset($_SESSION['image_name']);
 				
 				require_once 'view_complete.php';
 			}
@@ -189,7 +195,7 @@ require_once 'model.php';
 					$_SESSION['delete_comment'] =$delete_comment;
 					$_SESSION['delete_user_pass'] =$delete_pass;
 					$_SESSION['delete_id'] =$id;
-					
+				
 					require_once 'view_delete.php';
 				}
 				else{
@@ -203,7 +209,7 @@ require_once 'model.php';
 				require_once 'view_login.php';
 			}				
 		break;
-		
+	
 		case "delete2":
 			//ログイン確認
 			$login=LOGIN();

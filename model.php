@@ -2,10 +2,17 @@
 //データベースの接続
 require_once 'db.php';
 
+	define('UPLOAD_IMAGES_PATH','images/upload/');
+	define('UPLOAD_IMAGE_MAX_SIZE', 1000000);
+
+date_default_timezone_set('Asia/Tokyo');
+$now_datetime = date('YmdHis');
+
+
 //POSTの取得
 $action =$_POST['action'];
 $ec = $_POST['ec'];
-		
+
 	//取り出す最大レコード数
 	$lim =5;
 
@@ -38,7 +45,7 @@ $ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail_b);
 
 //イメージファイルの処理
 function upload_image_path($file_name){
-	$image_path = " 'images/upload/'.$file_name";
+	$image_path = UPLOAD_IMAGES_PATH.$file_name;
 	return $image_path;
 }
 
@@ -132,10 +139,10 @@ function NAMEDATA($db,$user_id){
 
 
 //書き込み部分の表示
-function INSERTBBS($db,$user_id,$comment,$pass){
+function INSERTBBS($db,$user_id_s,$comment_s,$pass_s,$image_name_s){
 try{
-	$sth =$db->prepare("INSERT INTO comments(comment,pass,user_id) VALUES( ? , ? , ?)");
-	$sth->execute(array($comment , $pass ,$user_id));
+	$sth =$db->prepare("INSERT INTO comments(comment,image_file,pass,user_id) VALUES( ? , ? , ? , ?)");
+	$sth->execute(array($comment_s , $image_name_s , $pass_s , $user_id_s));
 }
 catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());

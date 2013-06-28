@@ -24,9 +24,9 @@
 
 <h2>コメントフォーム</h2>
 
-	<form method="post" action="index.php" >
+	<form enctype="multipart/form-data" method="post" action="index.php" >
 		<label for="comment">コメント:</label>
-		<textarea id="comment" name="comment"  cols="30" rows="5"><?php echo $$comment; ?></textarea><br />
+		<textarea id="comment" name="comment"  cols="30" rows="5"> <?php echo $$comment; ?></textarea><br />
 <?php if (empty($comment) && !empty($ec)) { ?>
 		<div style ="color:red">コメントを入力して下さい！</div>
 <?php } ?>

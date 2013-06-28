@@ -9,7 +9,6 @@
 <body>
 <div id="waku">
 <div id="sample-title"><h1>TRANING02</h1></div>
-
 <div class="sample-contents">
 <h2>掲示板</h2>
 <h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
@@ -18,13 +17,13 @@
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---書き込み内容--->
-名前：<?php echo $user_name; ?> <br />
+　名前　：<?php echo $_SESSION['user_name']; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
-<?php if($post_image_name){
-					//$image_path = UPLOAD_IMAGES_PATH.$image_name;
-					$post_image_path = upload_image_path($post_image_name);
-					echo '<p><image width="320px" src="'.$post_image_path.'" />'; ?>
-<br /> <?php } ?>
+<?php if(!empty($image_name)){
+					$image_path = upload_image_path($image_name);
+					echo '<p><image width="320px" src="'.$image_path.'" />';
+					echo $image_path; ?>
+<br /><br /> <?php } ?>
 削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">

@@ -22,15 +22,17 @@
 	$row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
 	$user_name =$row['user_name'];
-
-
 ?>
 
 	<tr>
 	<td><?php echo $time; ?></td>
 	<td><?php echo $user_name; ?></td>
-	<td><?php echo nl2br ($comment); ?><br/>
-	<?php echo $image_file; ?></td>
+	<td><?php echo nl2br ($comment); 
+			if($image_file){
+				$image_path = upload_image_path($image_file);
+				echo '<p><image width="200px" src=" '.$image_path.' "></p>';
+			} ?>
+	</td>
 	<td>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
