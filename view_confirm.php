@@ -14,15 +14,15 @@
 <h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
 <a href ="view_logout.php">ログアウト</a><br />
 
+
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
 <!---書き込み内容--->
 　名前　：<?php echo $_SESSION['user_name']; ?> <br />
 コメント：<?php echo nl2br ($comment); ?> <br />
 <?php if(!empty($image_name)){
-					$image_path = upload_image_path($image_name);
-					echo '<p><image width="320px" src="'.$image_path.'" />';
-					echo $image_path; ?>
+					 $image_path = upload_image_path($image_name);
+					echo '<p><image width="200px" src="'.$image_path.'" />'; ?>
 <br /><br /> <?php } ?>
 削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
 この内容で書き込みます。
@@ -31,6 +31,7 @@
 <input type="hidden" value="ec" name="ec">
 <input type="submit" value="送信"></form>
 
+<div style ="color:red"><?php echo $error_msg; ?></div>
 <a href ="index.php">戻る</a>
 
 </div>

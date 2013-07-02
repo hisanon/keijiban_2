@@ -117,33 +117,43 @@ require_once 'model.php';
 				//パス入力のチェック
 				if(!empty($pass)) {
 
-					//ファイルの処理
-					if(!$_FILES['image_file']['error']){
-						$image_type = $_FILES['image_file']['type'];
-						$image_size = $_FILES['image_file']['size'];
-						$image_name = $now_datetime.'_'.$user_id_s.$_FILES['image_file']['name'];
-					}
-					else{
-						$image_size == 0;
-						$upload_name = NULL;
-					}
+						//ファイルの処理
+						if(!$_FILES['image_file']['error']){
+							$image_size = $_FILES['image_file']['size'];
+							$image_type = $_FILES['image_file']['type'];
+							$image_name = $now_datetime.'_'.$user_id_s.$_FILES['image_file']['name'];
+							$file_name = savedir.$image_name;
+						}
+						else{
+							$image_size == 0;
+							$upload_name = NULL;
+						}
 
-					// イメージファイルがあれば保存する
-					if($image_size > 0 && $image_size < UPLOAD_IMAGE_MAX_SIZE &&
-					   ($image_type == 'image/gif' || $image_type == 'image/jpeg' || $image_type == 'image/pjpeg' || $image_type == 'image/png')){
-						$upload_image_path = upload_image_path($image_name);
-						@move_uploaded_file($_FILES['image_file']['tmp_name'], $upload_image_path);
-					 }
+							// イメージファイルがあれば保存する
+						if($image_size > 0 && $image_size < UPLOAD_IMAGE_MAX_SIZE &&
+						   ($image_type == 'image/gif' || $image_type == 'image/jpeg' || $image_type == 'image/pjpeg' || $image_type == 'image/png')){
+							   
+						   if(is_uploaded_file($_FILES['image_file']['tmp_name'])){
+								
+								$upload_image_path = upload_image_path($image_name);
+								@move_uploaded_file($_FILES['image_file']['tmp_name'], $file_name);
 
-						@move_uploaded_file($_FILES['image_file']['name'], $upload_image_path);
+							}
+							else{
+								$error_msg ='画像が正常にアップロードされませんでした。';
+								require_once 'view.php';
+							}
 
-					$_SESSION['comment']=$comment;
-					$_SESSION['pass']=$pass;
-					$_SESSION['image_name']=$image_name;
-					require_once 'view_confirm.php';
+						 }
+
+						$_SESSION['comment']=$comment;
+						$_SESSION['pass']=$pass;
+						$_SESSION['image_name']=$image_name;
+						require_once 'view_confirm.php';
+										
 				}
 				else{
-					//入力されていなかったら戻る
+					//パスが入力されていなかったら戻る
 					$ec = 'ec';
 					require_once 'view.php';
 				}
@@ -165,8 +175,6 @@ require_once 'model.php';
 				$pass_s =$_SESSION['pass'];
 				$user_id_s =$_SESSION['user_id'];
 				$image_name_s =$_SESSION['image_name'];
-
-
 
 				//登録の実行、完了画面の表示
 				$sth= INSERTBBS($db,$user_id_s,$comment_s,$pass_s,$image_name_s);

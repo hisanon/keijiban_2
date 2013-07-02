@@ -4,7 +4,8 @@ require_once 'db.php';
 
 	define('UPLOAD_IMAGES_PATH','images/upload/');
 	define('UPLOAD_IMAGE_MAX_SIZE', 1000000);
-
+	define('savedir','/Applications/XAMPP/htdocs/savaway/TRANING02_c/images/upload/');
+	
 date_default_timezone_set('Asia/Tokyo');
 $now_datetime = date('YmdHis');
 
