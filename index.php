@@ -11,7 +11,7 @@ require_once 'model.php';
 			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
 				//入力値一致数のチェック
 				$no ='o';
-				$shingup =SHINGUP($db,$user_pass_b,$user_name,$no);
+				$shingup = SHINGUP($db,$user_pass_b,$user_name,$no);
 				if($shingup == True){
 					//アドレスのチェック
 					if ($ret) {
@@ -42,9 +42,9 @@ require_once 'model.php';
 		
 		//登録完了
 		case "shingup_complete":
-			$user_name_s=$_SESSION['user_name'];
-			$mail_s=$_SESSION['mail'];
-			$user_pass_s=$_SESSION['user_pass'];
+			$user_name_s=htmlspecialchars($_SESSION['user_name'], ENT_QUOTES, 'UTF-8');
+			$mail_s=htmlspecialchars($_SESSION['mail'], ENT_QUOTES, 'UTF-8');
+			$user_pass_s=htmlspecialchars($_SESSION['user_pass'], ENT_QUOTES, 'UTF-8');
 			//会員登録の実行、完了画面の表示
 				$sth= INSERTUSERS($db,$user_name_s,$mail_s,$user_pass_s);
 				$comp_msg='会員登録が完了しました。ログインを行って下さい';
@@ -114,6 +114,7 @@ require_once 'model.php';
 				$comment =$_POST['comment'];
 				$pass =$_POST['pass'];
 				
+                                
 				//パス入力のチェック
 				if(!empty($pass)) {
 
@@ -170,10 +171,10 @@ require_once 'model.php';
 			//ログイン確認
 			$login=LOGIN();
 			if($login == True){
-				$comment_s =$_SESSION['comment'];
-				$upload_image_path_s =$_SESSION['upload_image_path'];
-				$pass_s =$_SESSION['pass'];
-				$user_id_s =$_SESSION['user_id'];
+				$comment_s =htmlspecialchars($_SESSION['comment'], ENT_QUOTES, 'UTF-8');
+                                $upload_image_path_s =$_SESSION['upload_image_path'];
+				$pass_s =htmlspecialchars($_SESSION['pass'], ENT_QUOTES, 'UTF-8');
+				$user_id_s =htmlspecialchars($_SESSION['user_id'], ENT_QUOTES, 'UTF-8');
 				$image_name_s =$_SESSION['image_name'];
 
 				//登録の実行、完了画面の表示
@@ -223,9 +224,9 @@ require_once 'model.php';
 			$login=LOGIN();
 			if($login == True){
 				$pass =$_POST['pass'];
-				$delete_user_id_s=$_SESSION['delete_user_id'];
+                                $delete_user_id_s=$_SESSION['delete_user_id'];
 				$delete_comment_s=$_SESSION['delete_comment'];
-				$delete_pass_s=$_SESSION['delete_user_pass'];
+                                $delete_pass_s=$_SESSION['delete_user_pass'];
 				$delete_id_s=$_SESSION['delete_id'];
 				//入力passのチェック
 				if ($pass == $delete_pass_s){

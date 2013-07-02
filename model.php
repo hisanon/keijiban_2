@@ -4,7 +4,7 @@ require_once 'db.php';
 
 	define('UPLOAD_IMAGES_PATH','images/upload/');
 	define('UPLOAD_IMAGE_MAX_SIZE', 1000000);
-	define('savedir','/Applications/XAMPP/htdocs/savaway/TRANING02_c/images/upload/');
+	define('savedir','/Applications/XAMPP/htdocs/BBS/images/upload/');
 	
 date_default_timezone_set('Asia/Tokyo');
 $now_datetime = date('YmdHis');
@@ -42,6 +42,9 @@ $user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");
 
 //アドレスのチェック
 $ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail_b);
+
+//入力値の変換
+
 
 
 //イメージファイルの処理
@@ -162,5 +165,4 @@ catch(PDOException $e){
 	}
 	return $sth;
 }
-
 ?>

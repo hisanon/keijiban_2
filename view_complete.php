@@ -15,7 +15,7 @@
 <h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
 <a href ="view_logout.php">ログアウト</a><br />
 
-<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;">
 
 <h3>確認</h3>
 <font color ="red">コメントが登録されました。</font>

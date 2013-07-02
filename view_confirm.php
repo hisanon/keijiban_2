@@ -15,11 +15,11 @@
 <a href ="view_logout.php">ログアウト</a><br />
 
 
-<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;">
 
 <!---書き込み内容--->
 　名前　：<?php echo $_SESSION['user_name']; ?> <br />
-コメント：<?php echo nl2br ($comment); ?> <br />
+コメント：<?php echo nl2br (htmlspecialchars($comment, ENT_QUOTES,'ÍUTF-8')); ?> <br />
 <?php if(!empty($image_name)){
 					 $image_path = upload_image_path($image_name);
 					echo '<p><image width="200px" src="'.$image_path.'" />'; ?>

@@ -54,3 +54,4 @@ require_once 'view_bbs2.php';
 
 </body>
 </html>
+

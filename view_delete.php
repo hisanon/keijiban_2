@@ -13,7 +13,7 @@
 <div class="sample-contents">
 <h2>掲示板</h2>
 
-<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;">
 
 <!---削除確認--->
 このコメントを削除します。<br/>
@@ -24,6 +24,7 @@
 <input type="submit" value="削除"></form>
 
 <!---パスワードの確認--->
+
 <div style ="color:red"><?php echo $error_msg; ?> </div>
 
 
