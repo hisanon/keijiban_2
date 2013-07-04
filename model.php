@@ -5,14 +5,22 @@ require_once 'db.php';
 	define('UPLOAD_IMAGES_PATH','images/upload/');
 	define('UPLOAD_IMAGE_MAX_SIZE', 1000000);
 	define('savedir','/Applications/XAMPP/htdocs/BBS/images/upload/');
-	
+	define('MASTER_NAME','master');
+        define('MASTER_PASS','1234');
+        
+        
 date_default_timezone_set('Asia/Tokyo');
 $now_datetime = date('YmdHis');
+
+
+$master_msg ='';
 
 
 //POSTの取得
 $action =$_POST['action'];
 $ec = $_POST['ec'];
+
+$master_action =$_POST[master_action];
 
 	//取り出す最大レコード数
 	$lim =5;
@@ -43,7 +51,6 @@ $user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");
 //アドレスのチェック
 $ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail_b);
 
-//入力値の変換
 
 
 
@@ -63,6 +70,18 @@ catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
 }
 	return $sth;
+}
+
+
+//管理者認証
+function MASTER(){
+	if($_SESSION['user_name'] == MASTER_NAME && $_SESSION['user_id'] == '1'){
+		$master = True;
+	}
+	else{
+		$master =False;
+	}
+	return $master;
 }
 
 
@@ -127,9 +146,25 @@ function COUNTS($db,$name,$comment,$pass){
 	return $dtcnt;
 }
 
+
+//登録者数の確認
+function COUNTS_USERS($db){
+	$sth = $db -> query("SELECT * FROM USERS") or die('ERROR!2');
+	$sth->execute();
+	$dtcnt = $sth ->rowCount( );
+	return $dtcnt;
+}
+
 //掲示板部分の表示
 function ALLDATA($db,$st,$lim){
 	$sth =$db->prepare("SELECT * FROM comments ORDER by id desc LIMIT $st,$lim");
+	$sth->execute();
+	return $sth;
+}
+
+//登録者の表示
+function ALLUSERDATA($db,$st,$lim){
+	$sth =$db->prepare("SELECT * FROM USERS ORDER by user_id desc LIMIT $st,$lim");
 	$sth->execute();
 	return $sth;
 }

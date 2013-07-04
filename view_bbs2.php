@@ -11,17 +11,22 @@
 <?php
 	$sth= ALLDATA($db,$st,$lim);
 	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
-	
+     
+            
 	$id = $row['id'];
 	$time = $row['time'];
 	$user_id = $row['user_id'];
-	$comment =$row['comment'];
+	$comment =htmlspecialchars_decode ($row['comment'] , ENT_QUOTES);
 	$image_file =$row['image_file'];
 	
 	$sth2= NAMEDATA($db,$user_id);
 	$row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
-	$user_name =$row['user_name'];
+        $user_name =htmlspecialchars_decode ($row['user_name'] , ENT_QUOTES);
+        if($user_name == MASTER_NAME){
+            $user_name ='管理人';
+        }
+        
 ?>
 
 	<tr>

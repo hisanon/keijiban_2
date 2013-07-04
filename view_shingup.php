@@ -22,7 +22,7 @@ require_once 'model.php'; ?>
 <!--ログインの確認(ログイン状態)-->
 <?php $login=LOGIN();
 if($login == True){ ?>
-<p>既に<?php echo $_SESSION['user_name'] ?>の名前でログインしています。<br />
+<p>既に<?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT) ?>の名前でログインしています。<br />
 ログアウトしてからログインして下さい。</p>
 <br /><a href ="view_logout.php">ログアウト</a><br />
 <a href ="index.php">掲示板に戻る</a><br />
@@ -35,13 +35,13 @@ if($login == True){ ?>
 <h2>新規会員情報入力</h2>
   <form method="post" action="index.php " >
 		<label for="name">　　名前　:</label>
-		<input type="text" id="name" name="user_name" value="<?php echo $user_name; ?>" /><br />
+		<input type="text" id="name" name="user_name" value="<?php echo htmlspecialchars_decode ($user_name ,ENT_COMPAT); ?>" /><br />
 <?php if (empty($user_name) && !empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>
 		<label for="mail">　アドレス:</label>
 <?php if (empty($mail) && !empty($ec)) { ?>
-		<input type="text" id="mail"  name="mail" value="<?php echo $mail; ?>"/><br />
+		<input type="text" id="mail"  name="mail" value="<?php echo htmlspecialchars_decode ($mail ,ENT_COMPAT); ?>"/><br />
 		<div style ="color:red">アドレスを入力して下さい！</div> 
 <?php } 
 elseif (!empty($error_mail) && !empty($ec)) { ?>

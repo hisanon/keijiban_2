@@ -2,11 +2,19 @@
 session_start();
 require_once 'model.php';
 
+//管理者権限の確認
+$master =MASTER();                                
+
 		
 	switch($action){
 		//会員登録画面
 		case "shingup":
 			$user_name =$_POST['user_name'];
+                        if (substr($_POST['user_name'] || $_POST['mail_b'] ||$_POST['user_pass_b'],0,10) == "javascript:") {
+                            die("error!!");
+                        }
+                        else{
+                        
 			//会員情報のの入力確認
 			if(!empty($user_name) && !empty($mail) && !empty($user_pass)){
 				//入力値一致数のチェック
@@ -16,9 +24,9 @@ require_once 'model.php';
 					//アドレスのチェック
 					if ($ret) {
 						$action ="shingup_complete";
-						$_SESSION['user_name']=$user_name;
-						$_SESSION['mail']=$mail_b;
-						$_SESSION['user_pass']=$user_pass_b;
+						$_SESSION['user_name']=htmlspecialchars($user_name, ENT_QUOTES, 'UTF-8');
+						$_SESSION['mail']=htmlspecialchars($mail_b, ENT_QUOTES, 'UTF-8');
+						$_SESSION['user_pass']=htmlspecialchars($user_pass_b, ENT_QUOTES, 'UTF-8');
 
 						require_once 'view_shingup_confirm.php';
 					}
@@ -37,14 +45,15 @@ require_once 'model.php';
 				$ec ="ec";
 				require_once 'view_shingup.php';
 			}
-		break;
+                       }
+                      break;
 		
 		
 		//登録完了
 		case "shingup_complete":
-			$user_name_s=htmlspecialchars($_SESSION['user_name'], ENT_QUOTES, 'UTF-8');
-			$mail_s=htmlspecialchars($_SESSION['mail'], ENT_QUOTES, 'UTF-8');
-			$user_pass_s=htmlspecialchars($_SESSION['user_pass'], ENT_QUOTES, 'UTF-8');
+			$user_name_s=$_SESSION['user_name'];
+			$mail_s=$_SESSION['mail'];
+			$user_pass_s=$_SESSION['user_pass'];
 			//会員登録の実行、完了画面の表示
 				$sth= INSERTUSERS($db,$user_name_s,$mail_s,$user_pass_s);
 				$comp_msg='会員登録が完了しました。ログインを行って下さい';
@@ -60,8 +69,12 @@ require_once 'model.php';
 
 		//ログイン画面
 		case "login":
-			$user_name =$_POST['user_name'];
-			$user_pass =$_POST['user_pass'];
+                    if (substr($_POST['user_name'] ||$_POST['user_pass'],0,10) == "javascript:") {
+                     die("error!!");
+                    }
+                    else{
+			$user_name =htmlspecialchars($_POST['user_name'], ENT_QUOTES, 'UTF-8');
+			$user_pass =htmlspecialchars($_POST['user_pass'], ENT_QUOTES, 'UTF-8');
 			
 			if(!empty($user_name) && !empty($user_pass)){
 				//情報の一致数の確認
@@ -71,13 +84,13 @@ require_once 'model.php';
 				if($shingup == True){
 					//ログイン画面確認
 					$comp_msg='ログインが完了しました。';
-						$_SESSION['user_name']=$user_name;
+                                        $_SESSION['user_name']=$user_name;
 					//セッショッンに保管する情報の取得と保存
 					$user_id= GETID($db,$user_name,$user_pass);
 					$_SESSION['user_id']=$user_id;
 					$action ="";
 					require_once 'view.php';
-				}
+                                 }
 				else{
 					$error_msg ='入力情報が正しくありません。';
 					require_once 'view_login.php';
@@ -89,6 +102,7 @@ require_once 'model.php';
 				require_once 'view_login.php';
 
 			}
+                    }
 		break;
 
 
@@ -111,9 +125,13 @@ require_once 'model.php';
 			//ログイン確認
 			$login=LOGIN();
 			if($login == True){
-				$comment =$_POST['comment'];
-				$pass =$_POST['pass'];
-				
+                            $comment =htmlspecialchars($_POST['comment'], ENT_QUOTES, 'UTF-8');
+                            $pass =htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8');
+                                
+                                if (substr($comment ||$user_pass,0,10) == "javascript:") {
+                                     die("error!!");
+                                }
+                                else{
                                 
 				//パス入力のチェック
 				if(!empty($pass)) {
@@ -122,7 +140,7 @@ require_once 'model.php';
 						if(!$_FILES['image_file']['error']){
 							$image_size = $_FILES['image_file']['size'];
 							$image_type = $_FILES['image_file']['type'];
-							$image_name = $now_datetime.'_'.$user_id_s.$_FILES['image_file']['name'];
+							$image_name = $now_datetime.'_'.$user_id_s.(htmlspecialchars($_FILES['image_file']['name'], ENT_QUOTES, 'UTF-8'));
 							$file_name = savedir.$image_name;
 						}
 						else{
@@ -159,10 +177,12 @@ require_once 'model.php';
 					require_once 'view.php';
 				}
 			}
+                        }
 			else{
 				$error_msg ='ログインの確認が取れません。<br/>もう一度ログインし直して下さい。';
 				require_once 'view_login.php';
 			}
+                        
 		break;
 		
 		
@@ -171,10 +191,10 @@ require_once 'model.php';
 			//ログイン確認
 			$login=LOGIN();
 			if($login == True){
-				$comment_s =htmlspecialchars($_SESSION['comment'], ENT_QUOTES, 'UTF-8');
+				$comment_s =$_SESSION['comment'];
                                 $upload_image_path_s =$_SESSION['upload_image_path'];
-				$pass_s =htmlspecialchars($_SESSION['pass'], ENT_QUOTES, 'UTF-8');
-				$user_id_s =htmlspecialchars($_SESSION['user_id'], ENT_QUOTES, 'UTF-8');
+				$pass_s =$_SESSION['pass'];
+				$user_id_s =$_SESSION['user_id'];
 				$image_name_s =$_SESSION['image_name'];
 
 				//登録の実行、完了画面の表示
@@ -192,19 +212,26 @@ require_once 'model.php';
 			}
 		break;
 		
+                
+                //削除画面
 		case "delete":
 			//ログイン確認
 			$login=LOGIN();
+                        $master =MASTER();
 			if($login == True){
 				$id =$_POST['id'];
 				list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
 				//削除ユーザーとコメント記入ユーザーの一致確認
-				if( $delete_user_id == $_SESSION['user_id']){
+				if( $delete_user_id == $_SESSION['user_id'] || $master == True){
 					$_SESSION['delete_user_id'] =$delete_user_id;
 					$_SESSION['delete_comment'] =$delete_comment;
 					$_SESSION['delete_user_pass'] =$delete_pass;
 					$_SESSION['delete_id'] =$id;
 				
+                                            if($master == True){
+                                                $master_msg = '管理者権限を使用して処理を実行します。</br>管理パスを入力して下さい。';
+                                            }
+                                        
 					require_once 'view_delete.php';
 				}
 				else{
@@ -222,30 +249,53 @@ require_once 'model.php';
 		case "delete2":
 			//ログイン確認
 			$login=LOGIN();
+                        $master =MASTER();
 			if($login == True){
-				$pass =$_POST['pass'];
+				$pass =htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8');
                                 $delete_user_id_s=$_SESSION['delete_user_id'];
 				$delete_comment_s=$_SESSION['delete_comment'];
                                 $delete_pass_s=$_SESSION['delete_user_pass'];
 				$delete_id_s=$_SESSION['delete_id'];
-				//入力passのチェック
-				if ($pass == $delete_pass_s){
-				//削除の実行
-				$sth = DELETEBBS($db,$delete_id_s);
+                                if (substr($_POST['user_name'],0,10) == "javascript:") {
+                                     die("error!!");
+                                }
+                                else{
+                                    //入力passのチェック
+                                    if ($pass == $delete_pass_s){
+                                        //削除の実行
+                                        $sth = DELETEBBS($db,$delete_id_s);
+
+                                        unset($_SESSION['delete_comment']);
+                                        unset($_SESSION['delete_user_pass']);
+                                        unset($_SESSION['delete_user_id']);
+                                        unset($_SESSION['delete_id']);                                
+                                    
+                                        //完了画面
+                                        require_once 'view_delete_complete.php';                                       
+                                    }
+                                    elseif ($master == True && $pass =MASTER_PASS) {
+                                        //削除の実行
+                                        $sth = DELETEBBS($db,$delete_id_s);
+                                
+                                        unset($_SESSION['delete_comment']);
+                                        unset($_SESSION['delete_user_pass']);
+                                        unset($_SESSION['delete_user_id']);
+                                        unset($_SESSION['delete_id']);
+                                        
+                                        if($master == True){
+                                                $master_msg = '管理者権限を使用して処理を実行しました。';
+                                            }
 				
-				unset($_SESSION['delete_comment']);
-				unset($_SESSION['delete_user_pass']);
-				unset($_SESSION['delete_user_id']);
-				unset($_SESSION['delete_id']);
-				
-				//完了画面
-				require_once 'view_delete_complete.php';
-				}
-				else{
-				//エラーの場合戻る
-				$error_msg ='削除パスが間違っています。';
-				require_once 'view_delete.php';			
-				}
+                                         //完了画面
+                                         require_once 'view_delete_complete.php';
+                                    }
+                                    else{
+                                        //エラーの場合戻る
+                                        $error_msg ='削除パスが間違っています。';
+                                        
+                                        require_once 'view_delete.php';			
+                                    }
+                               }
 			}
 			else{
 				$error_msg ='ログインの確認が取れません。<br/>もう一度ログインし直して下さい。';
@@ -253,6 +303,7 @@ require_once 'model.php';
 			}				
 		break;
 		
+                
 		default:
 			//ログイン確認
 			$login=LOGIN();

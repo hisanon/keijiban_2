@@ -11,20 +11,20 @@
 <div id="sample-title"><h1>TRANING02</h1></div>
 <div class="sample-contents">
 <h2>掲示板</h2>
-<h3><?php echo $_SESSION['user_name']; ?>としてログイン中です。</h3>
+<h3><?php echo  htmlspecialchars_decode($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。</h3>
 <a href ="view_logout.php">ログアウト</a><br />
 
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;">
 
 <!---書き込み内容--->
-　名前　：<?php echo $_SESSION['user_name']; ?> <br />
-コメント：<?php echo nl2br (htmlspecialchars($comment, ENT_QUOTES,'ÍUTF-8')); ?> <br />
+　名前　：<?php echo  htmlspecialchars_decode ( $_SESSION['user_name'] ,ENT_COMPAT); ?> <br />
+コメント：<?php echo nl2br ( htmlspecialchars_decode ( $comment ,ENT_COMPAT)); ?> <br />
 <?php if(!empty($image_name)){
 					 $image_path = upload_image_path($image_name);
 					echo '<p><image width="200px" src="'.$image_path.'" />'; ?>
 <br /><br /> <?php } ?>
-削除パス：<?php echo str_repeat('●' , mb_strlen($pass)); ?> <br />
+削除パス：<?php echo str_repeat('●' , mb_strlen( htmlspecialchars_decode($pass ,ENT_COMPAT))); ?> <br />
 この内容で書き込みます。
 <form method ="post" action ="index.php">
 <input type="hidden" name="action" value="complete">

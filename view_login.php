@@ -21,7 +21,7 @@
 
   <form method="post" action="index.php " >
 		<label for="user_name">　　名前　:</label>
-		<input type="text" id="user_name" name="user_name" value="<?php echo $user_name; ?>"/><br />
+		<input type="text" id="user_name" name="user_name" value="<?php echo htmlspecialchars_decode ($user_name ,ENT_COMPAT); ?>"/><br />
 <?php if (empty($user_name) && empty($ec)) { ?>
 		<div style ="color:red">名前を入力して下さい！</div>
 <?php } ?>

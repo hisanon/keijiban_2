@@ -12,12 +12,15 @@
 
 <div class="sample-contents">
 <h2>掲示板</h2>
+<h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。</h3>
+<a href ="view_logout.php">ログアウト</a><br />
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;">
 
 <!---削除確認--->
+<div style ="color:red"><?php echo $master_msg.'<br/>';?></div>
 このコメントを削除します。<br/>
-コメント：<?php echo nl2br ($_SESSION['delete_comment']); ?> <br />
+コメント：<?php echo nl2br (htmlspecialchars_decode ($_SESSION['delete_comment'] ,ENT_COMPAT)); ?> <br />
 <form method ="post" action ="index.php">
 <input type="password" name="pass" maxlength="4" value="">
 <input type="hidden" name="action" value="delete2">

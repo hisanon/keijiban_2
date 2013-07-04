@@ -1,5 +1,8 @@
-<?php session_start(); ?>
-<!---初期画面の表示--->
+<?php
+require_once 'master.php';
+?>
+
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>

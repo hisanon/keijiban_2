@@ -16,9 +16,9 @@
 <h2>新規会員情報確認</h2>
  
 <!---書き込み内容--->
-　　名前　：<?php echo $_SESSION['user_name']; ?> <br />
-　アドレス：<?php echo $_SESSION['mail']; ?> <br />
-パスワード：<?php echo str_repeat('●' , mb_strlen($_SESSION['user_pass'])); ?> <br />
+　　名前　：<?php echo htmlspecialchars_decode($_SESSION['user_name'],ENT_NOQUOTES); ?> <br />
+　アドレス：<?php echo htmlspecialchars($_SESSION['mail'],ENT_NOQUOTES); ?> <br />
+パスワード：<?php echo str_repeat('●' , mb_strlen(htmlspecialcharss($_SESSION['user_pass'],ENT_NOQUOTES))); ?> <br />
 この内容で登録します。
 <form method ="post" action ="index.php">
 <input type="hidden" name="action" value="shingup_complete">
