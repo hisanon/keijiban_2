@@ -10,21 +10,31 @@ require_once 'model.php';
 	<title>TRANING01_a/管理画面</title>
 </head>
 <body>    
-    
-<table border="1" width="500" cellspacing="0" cellpadding="5">
-	<tr>
-	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th>
-	</tr>
 
-<?php if($delete == 'confirm_bbs'){ ?>
-    <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
-        <?php require_once 'master_view_confirm.php'; ?>
-    </div>    
-<?php } ?>
-    
+<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+
+    <?php if(empty($order)){ ?>
+        <h2>管理者用コメントフォーム</h2>
+        <form enctype="multipart/form-data" method="post" action="mastr_index.php" >
+            <label for="comment">コメント:</label>
+            <textarea id="comment" name="comment"  cols="30" rows="5"></textarea><br />    
+            <label for="image_file">　画像　:</label>
+            <input type="file" id="image_file" name="image_file" /><br />
+            <input type="hidden" value="confirm" name="master_action">
+            <input type="submit" value="送信" name="submit" />
+        </form>
+    <?php }else{require_once 'master_view_confirm.php'; } ?>
+</div>    
+
+    <br />
+        
 <?php $dtcnt = COUNTS($db,$name,$comment,$pass); ?>
 		全コメント数<?php echo $dtcnt; ?>件
 	
+<table border="1" width="500" cellspacing="0" cellpadding="5">
+<tr>
+<th width="100">ID</th><th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th></tr>
+                
 <?php
 	$sth= ALLDATA($db,$st,$lim);
 	while($row =$sth->fetch(PDO::FETCH_ASSOC)){
@@ -41,7 +51,8 @@ require_once 'model.php';
             $user_name =htmlspecialchars_decode ($row['user_name'] , ENT_QUOTES);
 ?>
 
-        	<tr>
+                <tr>
+                <td><?php echo $id; ?></td>
                 <td><?php echo $time; ?></td>
                 <td><?php echo $user_name; ?></td>
                 <td><?php echo nl2br ($comment); 
@@ -53,8 +64,7 @@ require_once 'model.php';
                 <td>
                     <form method="post" action="master_index.php" >
                     <input type="hidden" value="<?php echo $id; ?>" name="id" />
-                    <input type="hidden" value="<?php echo $user_name; ?>" name="id" />
-                    <input type="hidden" value="delete" name="action" />
+                    <input type="hidden" value="delete_bbs" name="master_action" />
                     <input type="submit" value="削除" name="submit" />
                     </form>
                 </td>

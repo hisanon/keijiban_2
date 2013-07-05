@@ -125,9 +125,24 @@ function GETID($db,$user_name_s,$user_pass_s){
 }
 
 
-function GETDELETE($db,$id){
-				$sth =$db->prepare("SELECT * FROM comments WHERE id ='$id' ");
+//削除ユーザーの検索
+function GETDELETE_USER($db,$id){
+				$sth =$db->prepare("SELECT * FROM USERS WHERE user_id ='$id' ");
 				$sth->execute();
+			$row =$sth->fetch(PDO::FETCH_ASSOC);
+			
+			$delete_name =$row['user_name'];
+			$delete_mail =$row['mail'];
+			$delete_id =$row['user_id'];
+
+			return array($delete_name,$delete_mail,$delete_id);
+}
+
+
+//削除コメントの検索
+function GETDELETE($db,$id){
+			$sth =$db->prepare("SELECT * FROM comments WHERE id ='$id' ");
+			$sth->execute();
 			$row =$sth->fetch(PDO::FETCH_ASSOC);
 			
 			$delete_comment =$row['comment'];
@@ -136,6 +151,7 @@ function GETDELETE($db,$id){
 
 			return array($delete_comment,$delete_pass,$delete_user_id);
 }
+
 
 
 //コメント数の確認
@@ -189,6 +205,21 @@ catch(PDOException $e){
 	return $sth;
 }
 
+
+//ユーザー削除部分の表示
+function DELETEUSER($db,$id){
+try{
+    $sth =$db->prepare("DELETE FROM USERS WHERE user_id = $id");
+    $sth->execute();	
+}
+catch(PDOException $e){
+    die('Delete failed:'.$e->getMessage());
+}
+    return $sth;
+}
+
+
+
 //削除部分の表示
 function DELETEBBS($db,$id){
 try{
@@ -196,7 +227,7 @@ try{
 	$sth->execute();	
 	}
 catch(PDOException $e){
-	die('Delete failed: '.$e->getMessage());
+	die('Delete failed:'.$e->getMessage());
 	}
 	return $sth;
 }

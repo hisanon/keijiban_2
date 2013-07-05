@@ -1,8 +1,7 @@
-<?php session_start(); ?>
 <!---掲示板部分の表示--->
 <table border="1" width="500" cellspacing="0" cellpadding="5">
 	<tr>
-	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="20">削除</th>
+	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="80">削除</th>
 	</tr>
 
 <?php $dtcnt = COUNTS($db,$name,$comment,$pass); ?>
@@ -38,13 +37,17 @@
 				echo '<p><image width="200px" src=" '.$image_path.' "></p>';
 			} ?>
 	</td>
-	<td>
+	<td><?php $login=LOGIN();
+            if($login == True){ ?>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
 		<input type="hidden" value="delete" name="action" />
 		<input type="submit" value="削除" name="submit" />
 		</form>
-	</td>
+            <?php } else{ ?>
+                削除
+            <?php } ?>
+        </td>
 	</tr>
 
 <?php
