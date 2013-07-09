@@ -2,15 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a/管理画面</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
-<body>    
+<body>
+    <div class="back">
     
-<div id="waku">
-<div id="sample-title"><h1>TRANING02/管理画面</h1></div>
+    <table>
+            
+<h1 class ="title"><?php echo $bbs_name; ?></h1>
 
-<div class="sample-contents">
+
 <h2>掲示板管理</h2>
 
 <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
@@ -24,10 +27,7 @@
 
 </div>
 
-
-
+</table>
 </div>
-</div><!-- waku_END -->
-
 </body>
 </html>

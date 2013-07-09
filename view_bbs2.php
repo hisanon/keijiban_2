@@ -1,7 +1,8 @@
 <!---掲示板部分の表示--->
 <table border="1" width="500" cellspacing="0" cellpadding="5">
+    
 	<tr>
-	<th width="100">時間</th><th width="100">投稿者</th><th width="500">コメント</th><th width="80">削除</th>
+	<th width="100" class ="time">時間</th><th width="100" class="name">投稿者</th><th width="500" class ="time">コメント</th><th width="80" class="name">削除</th>
 	</tr>
 
 <?php $dtcnt = COUNTS($db,$name,$comment,$pass); ?>
@@ -29,15 +30,15 @@
 ?>
 
 	<tr>
-	<td><?php echo $time; ?></td>
-	<td><?php echo $user_name; ?></td>
-	<td><?php echo nl2br ($comment); 
+	<td class ="time"><?php echo $time; ?></td>
+	<td class ="name"><?php echo $user_name; ?></td>
+	<td class ="time"><?php echo nl2br ($comment); 
 			if($image_file){
 				$image_path = upload_image_path($image_file);
 				echo '<p><image width="200px" src=" '.$image_path.' "></p>';
 			} ?>
 	</td>
-	<td><?php $login=LOGIN();
+	<td class="name"><?php $login=LOGIN();
             if($login == True){ ?>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
@@ -52,6 +53,7 @@
 
 <?php
 }?>
+        </div>
 </table>
 <?php 
 if($p>1){
@@ -64,3 +66,4 @@ if(($next -1) * $lim < $dtcnt){
 <a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $next; ?>">次のページ→</a>
 
 <?php } ?>
+

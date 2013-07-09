@@ -1,16 +1,17 @@
 <?php session_start();
+require_once 'color.php'; 
 require_once 'model.php'; ?>
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
-<body>
-<div id="waku">
-<div id="sample-title"><h1>TRANING02</h1></div>
-<div class="sample-contents">
+<body class="back">
+<h1 class="tittle"><?php echo $bbs_name; ?></h1>
+
 <h2>会員登録</h2>
 
 <div style ="color:red">
@@ -18,6 +19,8 @@ require_once 'model.php'; ?>
 </div><br />
 
 <?php echo $res; ?>
+
+<table>
 
 <!--ログインの確認(ログイン状態)-->
 <?php $login=LOGIN();
@@ -63,8 +66,6 @@ else  { ?>
 	</form>
 <?php } ?>
 		
-</div>
-</div><!-- waku_END -->
-
+</table>
 </body>
 </html>

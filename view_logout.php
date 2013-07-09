@@ -2,16 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
-<body>
-<div id="waku">
-<div id="sample-title"><h1>TRANING02</h1></div>
+<body class ="back">
+<h1 class="tittle"><?php echo $bbs_name; ?></h1>
 
-<div class="sample-contents">
+<table>
+
 <h2>ログアウト</h2>
-<h2>ログアウトしてもよろしいですか？</h2>
+<h3>ログアウトしてもよろしいですか？</h3>
 
 <form method="post" action="index.php " >
 <input type="submit" value="はい" name="submit" />
@@ -23,8 +24,6 @@
 <input type="hidden" value="" name="action">
 </form>
 		
-</div>
-</div><!-- waku_END -->
-
+</table>
 </body>
 </html>

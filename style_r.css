@@ -1,0 +1,6 @@
+.back { background-color: #FFF0F5 }  /* 全体の背景色 skyblue*/
+.title { color: #ff9999 } /* タイトル文字色 */
+table { background-color: #99ffff }    /* テーブルの背景色 */
+.comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #FFF5EE}
+.time {background-color: #ffcccc ; color: #000000; }
+.name {background-color:#FFF5EE; color: #000000;}

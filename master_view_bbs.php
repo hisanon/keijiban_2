@@ -6,7 +6,7 @@ require_once 'model.php';
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>TRANING01_a/管理画面</title>
 </head>
 <body>    
@@ -15,12 +15,12 @@ require_once 'model.php';
 
     <?php if(empty($order)){ ?>
         <h2>管理者用コメントフォーム</h2>
-        <form enctype="multipart/form-data" method="post" action="mastr_index.php" >
+        <form enctype="multipart/form-data" method="post" action="master_index.php" >
             <label for="comment">コメント:</label>
             <textarea id="comment" name="comment"  cols="30" rows="5"></textarea><br />    
             <label for="image_file">　画像　:</label>
             <input type="file" id="image_file" name="image_file" /><br />
-            <input type="hidden" value="confirm" name="master_action">
+            <input type="hidden" value="master_confirm" name="$master_action">
             <input type="submit" value="送信" name="submit" />
         </form>
     <?php }else{require_once 'master_view_confirm.php'; } ?>

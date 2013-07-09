@@ -1,18 +1,20 @@
 <?php session_start(); ?>
 <!---初期画面の表示--->
+
+<?php require_once 'model.php'; ?>
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a</title>
-</head>
-<body>    
     
-<div id="waku">
-<div id="sample-title"><h1>TRANING02</h1></div>
+<head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TRANING02_a</title>
+</head>
+<body class="back">    
+    
+<h1 class ="title"><?php echo $bbs_name; ?></h1>
 
-<div class="sample-contents">
-<h2>掲示板</h2>
+
 <h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] , ENT_QUOTES); ?>としてログイン中です。</h3>
 
 <div style ="color:red">
@@ -21,8 +23,10 @@
 
 <a href ="view_logout.php">ログアウト</a><br />
 
-<div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
 
+<div class="comment">
+
+    
 <h2>コメントフォーム</h2>
 
 	<form enctype="multipart/form-data" method="post" action="index.php" >
@@ -38,21 +42,17 @@
 <?php } ?>
 		<label for="image_file">　画像　:</label>
 		<input type="file" id="image_file" name="image_file" /><br />
-
-		　　　　　　　<input type="submit" value="送信" name="submit" />
-		<input type="hidden" value="confirm" name="action">
+                <input type="hidden" value="confirm" name="action">
+		<input type="submit" value="送信" name="submit" />
+		
 	</form>
-
 </div>
+
 		
 <?php
 //掲示板部分の表示
 require_once 'view_bbs2.php';
-
 ?>	
-</div>
-</div><!-- waku_END -->
-
 </body>
 </html>
 

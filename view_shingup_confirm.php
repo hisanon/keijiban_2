@@ -3,18 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
 <body>
-<div id="waku">
-<div id="sample-title"><h1>TRANING02</h1></div>
+<h1><?php echo $bbs_name; ?></h1>
 
-<div class="sample-contents">
 <h2>会員登録</h2>
 
-<h2>新規会員情報確認</h2>
+<h3>新規会員情報確認</h3>
  
+<table>
 <!---書き込み内容--->
 　　名前　：<?php echo htmlspecialchars_decode($_SESSION['user_name'],ENT_NOQUOTES); ?> <br />
 　アドレス：<?php echo htmlspecialchars($_SESSION['mail'],ENT_NOQUOTES); ?> <br />
@@ -26,10 +26,6 @@
 <br />
 <a href ="view_shingup.php">戻る</a>
  
- 
- 		
-</div>
-</div><!-- waku_END -->
-
+</table>
 </body>
 </html>

@@ -3,16 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
 <head>
+    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>TRANING01_a</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
 <body>
-<div id="waku">
-<div id="sample-title"><h1>TRANING02</h1></div>
+<h1 class="tittle"><?php echo $bbs_name; ?></h1>
 
-<div class="sample-contents">
 <h2>ログイン画面</h2>
 
+<table>
 <div style ="color:red">
 <?php echo $error_msg.$comp_msg; ?>
 </div>
@@ -35,8 +35,6 @@
 	</form>
 
 <br /><br />
-</div>
-</div><!-- waku_END -->
-
+</table>
 </body>
 </html>

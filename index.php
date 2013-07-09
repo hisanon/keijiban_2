@@ -2,8 +2,10 @@
 session_start();
 require_once 'model.php';
 
-//管理者権限の確認
-$master =MASTER();                                
+//掲示板情報の取得
+list($color,$bbs_name) = layout($db);    
+    
+    require_once 'color.php';
 
 		
 	switch($action){
@@ -249,7 +251,6 @@ $master =MASTER();
 		case "delete2":
 			//ログイン確認
 			$login=LOGIN();
-                        $master =MASTER();
 			if($login == True){
 				$pass =htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8');
                                 $delete_user_id_s=$_SESSION['delete_user_id'];
@@ -272,22 +273,6 @@ $master =MASTER();
                                     
                                         //完了画面
                                         require_once 'view_delete_complete.php';                                       
-                                    }
-                                    elseif ($master == True && $pass =MASTER_PASS) {
-                                        //削除の実行
-                                        $sth = DELETEBBS($db,$delete_id_s);
-                                
-                                        unset($_SESSION['delete_comment']);
-                                        unset($_SESSION['delete_user_pass']);
-                                        unset($_SESSION['delete_user_id']);
-                                        unset($_SESSION['delete_id']);
-                                        
-                                        if($master == True){
-                                                $master_msg = '管理者権限を使用して処理を実行しました。';
-                                            }
-				
-                                         //完了画面
-                                         require_once 'view_delete_complete.php';
                                     }
                                     else{
                                         //エラーの場合戻る

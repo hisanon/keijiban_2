@@ -1,13 +1,17 @@
 <?php
-session_start();
 require_once 'model.php';
 $order = '';
+
+list($color,$bbs_name) = layout($db);
+require_once 'color.php';
 
 $master_action =$_POST[master_action];
 $order="";
 
 echo $master_action;
-echo $order;
+echo $c_color;
+
+
 
 switch($master_action){
     
@@ -38,8 +42,75 @@ switch($master_action){
         require_once 'master_view_users.php';
             
     break;
+ 
+
+    //書き込みの確認
+    case "master_confirm":
+        //書き込み情報の取得
+        $comment =$_POST['comment'];
+        $image_file =$_POST['image_file'];
+        
+        //ファイルの処理
+	if(!$_FILES['image_file']['error']){
+            $image_size = $_FILES['image_file']['size'];
+            $image_type = $_FILES['image_file']['type'];
+            $image_name = $now_datetime.'_'.$user_id_s.(htmlspecialchars($_FILES['image_file']['name'], ENT_QUOTES, 'UTF-8'));
+            $file_name = savedir.$image_name;
+	}
+	else{
+            $image_size == 0;
+            $upload_name = NULL;
+	}
+
+        // イメージファイルがあれば保存する
+        if($image_size > 0 && $image_size < UPLOAD_IMAGE_MAX_SIZE &&
+            ($image_type == 'image/gif' || $image_type == 'image/jpeg' || $image_type == 'image/pjpeg' || $image_type == 'image/png')){
+							   
+            if(is_uploaded_file($_FILES['image_file']['tmp_name'])){
+            							
+                $upload_image_path = upload_image_path($image_name);
+                @move_uploaded_file($_FILES['image_file']['tmp_name'], $file_name);
+
+            }
+            else{
+                $error_msg ='画像が正常にアップロードされませんでした。';
+            }
+         }
+        
+        $_SESSION['comment'] =$comment;
+        $_SESSION['image_name'] =$image_name;
+        $_SESSION['upload_image_path'] =$upload_image_path;
+        
+        
+        $order = 'comment';
+
+        require_once 'master_view_bbs.php';
+    break;
+
+
+    //書き込みの実行
+    case "master_complete":
+        
+        $comment_s =$_SESSION['comment'];
+        $upload_image_path_s =$_SESSION['upload_image_path'];
+	$image_name_s =$_SESSION['image_name'];
+        $user_id="1";
+        $pass="1234";
+        
+        $order = 'comment2';
+        
+	//登録の実行、完了画面の表示
+	$sth= INSERTBBS($db,$user_id,$comment_s,$pass,$image_name_s);
+				
+	unset($_SESSION['comment']);
+        unset($_SESSION['image_name']);
+        unset($_SESSION['upload_image_path']);
+
+        require_once 'master_view_bbs.php';
+    break;
+
     
-    
+    //掲示板管理
     case "delete_bbs":
         //削除情報の取得
         $order='conrirm_bbs';
@@ -62,6 +133,7 @@ switch($master_action){
     break;
 
 
+    //掲示板削除実行
     case "delete_bbs2":
         $order='conrirm_bbs2';
         $delete_id_s=$_SESSION['delete_id'];
@@ -79,14 +151,83 @@ switch($master_action){
     break;
 
 
-    case "delete_bbs":
-        $color = $_POST['color'];
-        
-        
-        
+    //掲示板の色変更
+    case "change_color":
+        $order= 'color';
+        require_once 'master_view_index.php';
     break;
 
 
+
+    //掲示板の色変更
+    case "change_color2":
+        $c_color = $_POST['color'];
+        $_SESSION['color']=$c_color;
+        
+        echo $c_color;
+         switch($C_color){
+            case "blue":
+                $css ='style_b.css';
+                $a='青';
+            break;
+            
+            case "red":      
+                $css ='style_r.css';
+                $a='赤';
+            break;
+        
+            case "gray":
+                $css ='style_b.css';
+                $a='黒';
+            break;
+        
+            default :
+                $css ='style.css';
+                $a='ノーマル';
+            break;
+        }
+        
+        $order='color2';
+        require_once 'master_view_index.php';
+    break;
+
+
+    case "change_color3":
+        $_name_s=$_SESSION['color'];
+        
+        $sth=CHANGE_LAYOUT($db,$c_name_s);
+        
+        $order='color3';
+        require_once 'master_view_index.php';
+    break;
+
+
+    //掲示板名の変更
+    case "change_name":
+        $order = "bbs_name";
+        require_once 'master_view_index.php';
+    break;
+
+
+    case "change_name2":
+        $c_name = $_POST['bbs_name'];
+        $_SESSION['bbs_name']=$c_name;
+        
+        $order = "bbs_name2";
+        require_once 'master_view_index.php';
+    break;
+
+
+    case "change_name3":
+        $c_name_s =$_SESSION['bbs_name'];
+        
+        $sth=CHANGENAME($db,$c_name_s);
+        
+        $order="bbs_name3";
+        require_once 'master_view_index.php';
+    break;
+        
+        
     default:
         require_once 'master.php';
     break;    

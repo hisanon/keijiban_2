@@ -53,6 +53,18 @@ $ret = preg_match("/^[a-zA-Z0-9_\.\-]+?@[A-Za-z0-9_\.\-]+$/", $mail_b);
 
 
 
+//bbsのレイアウト表示
+function layout($db){
+	$sth =$db->prepare("SELECT * FROM layout WHERE id ='1'");
+	$sth->execute();
+	$row =$sth->fetch(PDO::FETCH_ASSOC);
+	$color =$row['color'];
+	$bbs_name =$row['bbs_name'];
+
+			
+        return array($color,$bbs_name);
+}
+
 
 //イメージファイルの処理
 function upload_image_path($file_name){
@@ -203,6 +215,34 @@ catch(PDOException $e){
 	die('Insert failed: '.$e->getMessage());
 }
 	return $sth;
+}
+
+
+//掲示板の色変更
+function CHANGE_LAYOUT($db,$c_color){
+    try{
+	$sth =$db->prepare("UPDATE layout SET color = ? WHERE id = 1");
+	$sth->bindvalue($c_color);	
+	}
+catch(PDOException $e){
+	die('Delete failed:'.$e->getMessage());
+	}
+	return $sth;
+    
+}
+
+
+//掲示板の名前変更
+function CHANGENAME($db,$c_name_s){
+    try{
+	$sth =$db->prepare("UPDATE layout SET bbs_name = ? WHERE id = 1");
+	$sth->bindvalue($c_name_s);	
+	}
+catch(PDOException $e){
+	die('Delete failed:'.$e->getMessage());
+	}
+	return $sth;
+    
 }
 
 
