@@ -23,7 +23,7 @@ list($color,$bbs_name) = layout($db);
         
         case "gray":
             
-            $css ='style_b.css';
+            $css ='style_g.css';
             
         break;
         

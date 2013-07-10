@@ -1,15 +1,13 @@
 <?php
+
 require_once 'model.php';
 $order = '';
-
-list($color,$bbs_name) = layout($db);
-require_once 'color.php';
 
 $master_action =$_POST[master_action];
 $order="";
 
 echo $master_action;
-echo $c_color;
+//echo $c_color;
 
 
 
@@ -120,14 +118,14 @@ switch($master_action){
         list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
             $_SESSION['delete_comment'] =$delete_comment;
 
-            echo $delete_user_id;
-            
-        $sth2 = NAMEDATA($db,$delete_user_id);
+            $sth2 = NAMEDATA($db,$delete_user_id);
             $row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
             $delete_user_name =$row['user_name'];
             
             $_SESSION['delete_user_name'] =$delete_user_name;
+            
+            echo 'aaaaa'.$_SESSION['delete_id'];
             
         require_once 'master_view_bbs.php';
     break;
@@ -137,9 +135,8 @@ switch($master_action){
     case "delete_bbs2":
         $order='conrirm_bbs2';
         $delete_id_s=$_SESSION['delete_id'];
-	$delete_comment_s=$_SESSION['delete_comment'];
-        $delete_name_s=$_SESSION['delete_user_name'];
 
+        echo 'aaaa'.$delete_id_s;
             //削除の実行
             $sth = DELETEBBS($db,$delete_id_s);
 
@@ -162,10 +159,8 @@ switch($master_action){
     //掲示板の色変更
     case "change_color2":
         $c_color = $_POST['color'];
-        $_SESSION['color']=$c_color;
         
-        echo $c_color;
-         switch($C_color){
+         switch($c_color){
             case "blue":
                 $css ='style_b.css';
                 $a='青';
@@ -177,7 +172,7 @@ switch($master_action){
             break;
         
             case "gray":
-                $css ='style_b.css';
+                $css ='style_g.css';
                 $a='黒';
             break;
         
@@ -187,15 +182,16 @@ switch($master_action){
             break;
         }
         
+        $_SESSION['color']=$c_color;
         $order='color2';
         require_once 'master_view_index.php';
     break;
 
 
     case "change_color3":
-        $_name_s=$_SESSION['color'];
+        $c_color_s=$_SESSION['color'];
         
-        $sth=CHANGE_LAYOUT($db,$c_name_s);
+        $sth=CHANGE_LAYOUT($db,$c_color_s,$bbs_name);
         
         $order='color3';
         require_once 'master_view_index.php';
@@ -212,7 +208,6 @@ switch($master_action){
     case "change_name2":
         $c_name = $_POST['bbs_name'];
         $_SESSION['bbs_name']=$c_name;
-        
         $order = "bbs_name2";
         require_once 'master_view_index.php';
     break;

@@ -4,3 +4,7 @@ table { background-color: #99ffff }    /* テーブルの背景色 */
 .comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #FFF5EE}
 .time {background-color: #ffcccc ; color: #000000; }
 .name {background-color:#FFF5EE; color: #000000;}
+
+.msg {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #ffcccc}
+
+

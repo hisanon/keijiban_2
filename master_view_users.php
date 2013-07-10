@@ -2,16 +2,11 @@
 require_once 'master.php';
 require_once 'model.php';
 ?>
+   
+<div class="back">
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>ユーザー管理画面</title>
-</head>
-<body>    
 <?php if($order =='confirm_users' ||$order =='confirm_users2'){ ?>
-    <div style="padding: 10px; margin-bottom: 10px; border: 5px double #333333; width :450;">
+    <div class="comment">
         <?php require_once 'master_view_confirm.php'; ?>
     </div>    
 <?php } ?>
@@ -22,7 +17,7 @@ require_once 'model.php';
 
 <table border="1" width="500" cellspacing="0" cellpadding="5">
     <tr>
-    <th width="100">ユーザーID</th><th width="100">名前</th><th width="500">アドレス</th><th width="20">管理</th>
+    <th class="time" width="100">ユーザーID</th><th class="name" width="100">名前</th><th class="time" width="500">アドレス</th><th class="name" width="20">管理</th>
     </tr>
 
                 
@@ -39,15 +34,15 @@ require_once 'model.php';
 ?>
 
 	<tr>
-	<td><?php echo $id; ?></td>
-	<td><?php echo htmlspecialchars_decode($name ,ENT_COMPAT); ?></td>
-	<td><?php echo nl2br (htmlspecialchars_decode($mail,ENT_COMPAT)); 
+	<td class="time"><?php echo $id; ?></td>
+	<td class="name"><?php echo htmlspecialchars_decode($name ,ENT_COMPAT); ?></td>
+	<td class="time"><?php echo nl2br (htmlspecialchars_decode($mail,ENT_COMPAT)); 
 			if($image_file){
 				$image_path = upload_image_path($image_file);
 				echo '<p><image width="200px" src=" '.$image_path.' "></p>';
 			} ?>
 	</td>
-	<td>
+	<td class="name">
 		<form method="post" action="master_index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
 		<input type="hidden" value="delete_user" name="master_action" />
@@ -71,6 +66,4 @@ if(($next -1) * $lim < $dtcnt){
 
 <?php } ?>
 
-
-</body>
-</html>
+</div>

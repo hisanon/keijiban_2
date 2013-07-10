@@ -19,8 +19,8 @@
 
 <?php if($order == 'conrirm_bbs'){ ?>
 このコメントを削除します。<br/>
-　ID　　：<?php echo $id; ?> <br />
-　名前　：<?php echo htmlspecialchars_decode ($delete_user_name ,ENT_COMPAT); ?> <br />
+　ID　　：<?php echo $_SESSION['delete_id']; ?> <br />
+　名前　：<?php echo htmlspecialchars_decode ($_SESSION['delete_user_name'] ,ENT_COMPAT); ?> <br />
 コメント：<?php echo nl2br (htmlspecialchars_decode ($_SESSION['delete_comment'] ,ENT_COMPAT)); ?> <br />
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="master_action" value="delete_bbs2">
@@ -93,7 +93,7 @@ tittle:<h2 class ="title">　　<?php echo $_SESSION['bbs_name']; ?></h2>
 <h2>管理者用レイアウト編集フォーム</h2>
 背景に変更する色を選択してください。<br />
 <form method ="post" actin ="master_index.php">
-　<input type="radio" name="color" value ="bule">　青<br />
+　<input type="radio" name="color" value ="blue">　青<br />
 　<input type="radio" name="color" value ="red">　赤<br />
 　<input type="radio" name="color" value ="gray">　黒<br />
 　<input type="radio" name="color" value ="nomal">　ノーマル<br />
@@ -109,6 +109,7 @@ tittle:<h2 class ="title">　　<?php echo $_SESSION['bbs_name']; ?></h2>
 よろしいですか？<br />
 変更色: <?php echo $a; ?>
 <form method ="post" action ="master_index.php">
+<input type="hidden" name="change_color" value="$a">
 <input type="hidden" name="master_action" value="change_color3">
 <input type="submit" value="実行"></form>
 <a href ="master.php">戻る</a><br />

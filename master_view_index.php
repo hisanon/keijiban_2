@@ -4,18 +4,11 @@ require_once 'master_index.php';
 require_once 'model.php';
 ?>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
-
-<head>
-    <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><?php $bbs_name ?></title>
-</head>
 <body>
-        <div class="back">
+    <div class="back">
     <table>
        <?php if(!empty($master_action)){ ?>
-                <br /><br /><div class="comment">
+                <br /><br /><div class="msg">
                 <?php require_once 'master_view_confirm.php'; ?>
                 </div>
         <?php }else{ ?>
@@ -58,6 +51,4 @@ require_once 'view_bbs2.php';
 
 </table>
 </div>
-</body>
-</html>
 

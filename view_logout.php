@@ -1,3 +1,8 @@
+<?php require_once 'model.php';
+list($color,$bbs_name) = layout($db);
+require_once 'color.php'; ?>
+
+
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 

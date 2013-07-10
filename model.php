@@ -1,4 +1,5 @@
 <?php
+session_start();
 //データベースの接続
 require_once 'db.php';
 
@@ -219,10 +220,13 @@ catch(PDOException $e){
 
 
 //掲示板の色変更
-function CHANGE_LAYOUT($db,$c_color){
+function CHANGE_LAYOUT($db,$c_color,$bbs_name){
     try{
-	$sth =$db->prepare("UPDATE layout SET color = ? WHERE id = 1");
-	$sth->bindvalue($c_color);	
+	$sth =$db->prepare("UPDATE layout SET color = ? , bbs_name = ? WHERE id = ?");
+	$sth->bindParam(1, $c_color);
+	$sth->bindParam(2, $bbs_name);
+        $sth->bindParam(3, '1');
+        $sth->execute();
 	}
 catch(PDOException $e){
 	die('Delete failed:'.$e->getMessage());
@@ -235,8 +239,9 @@ catch(PDOException $e){
 //掲示板の名前変更
 function CHANGENAME($db,$c_name_s){
     try{
-	$sth =$db->prepare("UPDATE layout SET bbs_name = ? WHERE id = 1");
-	$sth->bindvalue($c_name_s);	
+	$sth =$db->prepare("UPDATE layout SET bbs_name= :bbs_name, WHERE id = :id");
+	$sth->bindValue(':bbs_name',$c_name_s);
+        $sth->bindValue(':id',1);	
 	}
 catch(PDOException $e){
 	die('Delete failed:'.$e->getMessage());
@@ -260,12 +265,12 @@ catch(PDOException $e){
 
 
 
-//削除部分の表示
-function DELETEBBS($db,$id){
+//コメント削除
+function DELETEBBS($db,$delete_id_s){
 try{
-	$sth =$db->prepare("DELETE FROM comments WHERE id = $id");
-	$sth->execute();	
-	}
+	$sth =$db->prepare("DELETE FROM comments WHERE id = $delete_id_s");
+	$sth->execute();
+   }
 catch(PDOException $e){
 	die('Delete failed:'.$e->getMessage());
 	}

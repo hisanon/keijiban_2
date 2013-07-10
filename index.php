@@ -224,15 +224,11 @@ list($color,$bbs_name) = layout($db);
 				$id =$_POST['id'];
 				list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
 				//削除ユーザーとコメント記入ユーザーの一致確認
-				if( $delete_user_id == $_SESSION['user_id'] || $master == True){
+				if( $delete_user_id == $_SESSION['user_id']){
 					$_SESSION['delete_user_id'] =$delete_user_id;
 					$_SESSION['delete_comment'] =$delete_comment;
 					$_SESSION['delete_user_pass'] =$delete_pass;
 					$_SESSION['delete_id'] =$id;
-				
-                                            if($master == True){
-                                                $master_msg = '管理者権限を使用して処理を実行します。</br>管理パスを入力して下さい。';
-                                            }
                                         
 					require_once 'view_delete.php';
 				}

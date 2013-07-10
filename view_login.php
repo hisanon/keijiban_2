@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php require_once 'model.php';
+list($color,$bbs_name) = layout($db);
+require_once 'color.php'; ?>
+
 <!---初期画面の表示--->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
 
@@ -7,7 +10,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><?php echo $bbs_name; ?></title>
 </head>
-<body>
+<body class="back">
 <h1 class="tittle"><?php echo $bbs_name; ?></h1>
 
 <h2>ログイン画面</h2>
@@ -18,7 +21,7 @@
 </div>
 
 <a href ="view_shingup.php">会員登録</a><br /><br />
-
+<div class="comment">
   <form method="post" action="index.php " >
 		<label for="user_name">　　名前　:</label>
 		<input type="text" id="user_name" name="user_name" value="<?php echo htmlspecialchars_decode ($user_name ,ENT_COMPAT); ?>"/><br />
@@ -33,7 +36,8 @@
 		　　　　　　　<input type="submit" value="ログイン" name="submit" />
 		<input type="hidden" value="login" name="action">
 	</form>
-
+</div>
+    
 <br /><br />
 </table>
 </body>
