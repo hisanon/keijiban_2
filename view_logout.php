@@ -15,6 +15,7 @@ require_once 'color.php'; ?>
 <h1 class="tittle"><?php echo $bbs_name; ?></h1>
 
 <table>
+    <div class="comment">
 
 <h2>ログアウト</h2>
 <h3>ログアウトしてもよろしいですか？</h3>
@@ -28,7 +29,8 @@ require_once 'color.php'; ?>
 <input type="submit" value="いいえ" name="submit" />
 <input type="hidden" value="" name="action">
 </form>
-		
+	
+    </div>
 </table>
 </body>
 </html>

@@ -21,7 +21,7 @@ require_once 'color.php'; ?>
 
 <div class="comment">
 
-<a href ="view.php">・ユーザー表示の確認</a><br /></br />
+<a href ="index.php">・ユーザー表示の確認</a><br /></br />
 <a href ="master_view_index.php">・レイアウト管理</a><br />
 <a href ="master_view_users.php">・ユーザー管理</a><br />
 <a href ="master_view_bbs.php">・コメント管理</a><br />

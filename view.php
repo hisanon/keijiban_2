@@ -11,17 +11,16 @@
 	<title>TRANING02_a</title>
 </head>
 <body class="back">    
-    
-<h1 class ="title"><?php echo $bbs_name; ?></h1>
-
-
-<h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] , ENT_QUOTES); ?>としてログイン中です。</h3>
+    <div white-space: nowrap >
+<div class ="title"><?php echo $bbs_name; ?></div>
+<?php echo htmlspecialchars_decode ($_SESSION['user_name'] , ENT_QUOTES); ?>としてログイン中です。
 
 <div style ="color:red">
 <?php echo $comp_msg.$error_msg; ?>
 </div>
 
 <a href ="view_logout.php">ログアウト</a><br />
+    </div>
 
 
 <div class="comment">

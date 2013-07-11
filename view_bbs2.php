@@ -39,7 +39,7 @@
 			} ?>
 	</td>
 	<td class="name"><?php $login=LOGIN();
-            if($login == True){ ?>
+            if(empty($delete_action)){ ?>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
 		<input type="hidden" value="delete" name="action" />

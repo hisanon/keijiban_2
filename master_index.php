@@ -6,6 +6,9 @@ $order = '';
 $master_action =$_POST[master_action];
 $order="";
 
+$_SESSION['user_name'] = master;
+$_SESSION['user_id'] = 1;
+
 echo $master_action;
 //echo $c_color;
 
@@ -52,7 +55,7 @@ switch($master_action){
 	if(!$_FILES['image_file']['error']){
             $image_size = $_FILES['image_file']['size'];
             $image_type = $_FILES['image_file']['type'];
-            $image_name = $now_datetime.'_'.$user_id_s.(htmlspecialchars($_FILES['image_file']['name'], ENT_QUOTES, 'UTF-8'));
+            $image_name = $now_datetime.'_'.'master'.(htmlspecialchars($_FILES['image_file']['name'], ENT_QUOTES, 'UTF-8'));
             $file_name = savedir.$image_name;
 	}
 	else{
@@ -113,20 +116,20 @@ switch($master_action){
         //削除情報の取得
         $order='conrirm_bbs';
         $id =$_POST['id'];
-        $_SESSION['delete_id'] =$id;
         
-        list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
+        list($delete_comment,$delete_imge,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
             $_SESSION['delete_comment'] =$delete_comment;
-
+            $_SESSION['delete_imge'] =$delete_imge;
+            $_SESSION['delete_user_id'] =$delete_user_id;
+            $_SESSION['delete_id'] =$id;
+            
             $sth2 = NAMEDATA($db,$delete_user_id);
             $row =$sth2->fetch(PDO::FETCH_ASSOC);
 	
             $delete_user_name =$row['user_name'];
             
             $_SESSION['delete_user_name'] =$delete_user_name;
-            
-            echo 'aaaaa'.$_SESSION['delete_id'];
-            
+                        
         require_once 'master_view_bbs.php';
     break;
 
@@ -141,11 +144,39 @@ switch($master_action){
             $sth = DELETEBBS($db,$delete_id_s);
 
             unset($_SESSION['delete_comment']);
+            unset($_SESSION['delete_imge']);
             unset($_SESSION['delete_user_name']);
+            unset($_SESSION['delete_user_id']);
             unset($_SESSION['delete_id']);
         
             require_once 'master_view_bbs.php';
     break;
+
+
+    //コメントの編集
+    case "change_comment":
+        $change_comment= $_POST['change_comment'];
+        $_SESSION['change_comment']= $change_comment; 
+
+        $change_imge_s =$_SESSION['delete_imge'];
+        
+        $order = "bbs_comment";
+       
+        require_once 'master_view_index.php';
+    break;
+
+
+    case "change_comment2":
+        $change_comment_s =$_SESSION['change_comment'];
+        $change_user_id_s =$_SESSION['delete_user_id'];
+        $change_id_s =$_SESSION['delete_id'];        
+        
+        $sth =CHANGEBBS($db,$change_id_s,$change_comment_s,$change_user_id_s);
+        
+        $order = "bbs_comment2";
+        require_once 'master_view_index.php';
+    break;
+
 
 
     //掲示板の色変更

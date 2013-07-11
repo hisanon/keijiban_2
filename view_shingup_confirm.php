@@ -11,13 +11,9 @@ require_once 'color.php'; ?>
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class ="back">
-<h1 class="tittle"><?php echo $bbs_name; ?></h1>
-
+<h1 class="title"><?php echo $bbs_name; ?></h1>
+<table>
 <h2>会員登録</h2>
-
-<h3>新規会員情報確認</h3>
- 
-<table >
     <div class="comment">
 <!---書き込み内容--->
 　　名前　：<?php echo htmlspecialchars_decode($_SESSION['user_name'],ENT_NOQUOTES); ?> <br />

@@ -5,12 +5,11 @@
 <head>
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title><?php echo $bbs_name; ?>';</title>
+	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class ="back">
 
-    <table>
-    <h1>掲示板</h1>
+    <h1 class="title">掲示板</h1>
 <h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。</h3>
 <a href ="view_logout.php">ログアウト</a><br />
 
@@ -21,8 +20,14 @@
 <!---削除確認--->
 <div style ="color:red"><?php echo $master_msg.'<br/>';?></div>
 このコメントを削除します。<br/>
-コメント：<?php echo nl2br (htmlspecialchars_decode ($_SESSION['delete_comment'] ,ENT_COMPAT)); ?> <br />
+コメント：<?php echo nl2br (htmlspecialchars_decode ($delete_comment ,ENT_COMPAT));
+if(!empty($delete_imge)){
+	$image_path = upload_image_path($delete_imge);
+	echo '<p><image width="200px" src=" '.$image_path.' "></p>';
+} ?>
+
 <form method ="post" action ="index.php">
+削除パス入力:
 <input type="password" name="pass" maxlength="4" value="">
 <input type="hidden" name="action" value="delete2">
 <input type="submit" value="削除"></form>

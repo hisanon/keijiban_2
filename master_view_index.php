@@ -34,18 +34,18 @@ require_once 'model.php';
 <div class ="comment">
 <h2>コメントフォーム</h2>
 
-        <form enctype="multipart/form-data" method="post" action="mastr_view_index.php" >
+        <form enctype="multipart/form-data" method="post" action="master_view_index.php" >
             <label for="comment">コメント:</label>
             <textarea id="comment" name="comment"  cols="30" rows="5"></textarea><br />    
             <label for="image_file">　画像　:</label>
             <input type="file" id="image_file" name="image_file" /><br />
-            <input type="hidden" value="confirm" name="master_action">
             <input type="submit" value="送信" name="submit" />
         </form>
 </div>
 
 <?php
 //掲示板部分の表示
+$delete_action ='aaaa';
 require_once 'view_bbs2.php';
 ?>	
 

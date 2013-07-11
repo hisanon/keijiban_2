@@ -6,7 +6,6 @@
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="master_action" value="delete_user2">
 <input type="submit" value="実行"></form>
-<a href ="master.php">戻る</a><br />
 <?php } ?>
 
 
@@ -21,16 +20,51 @@
 このコメントを削除します。<br/>
 　ID　　：<?php echo $_SESSION['delete_id']; ?> <br />
 　名前　：<?php echo htmlspecialchars_decode ($_SESSION['delete_user_name'] ,ENT_COMPAT); ?> <br />
-コメント：<?php echo nl2br (htmlspecialchars_decode ($_SESSION['delete_comment'] ,ENT_COMPAT)); ?> <br />
+コメント：<?php echo nl2br (htmlspecialchars_decode ($delete_comment ,ENT_COMPAT)); ?> <br />
+<?php if(!empty($delete_imge)){
+	$image_path = upload_image_path($delete_imge);
+	echo '<p><image width="200px" src=" '.$image_path.' "></p>';
+} ?>
+<br />
+<form method ="post" action ="master_index.php">
+コメントの編集:
+<input type="text" name="change_comment">
+<input type="hidden" name="master_action" value="change_comment">
+<input type="submit" value="編集"></form>
+
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="master_action" value="delete_bbs2">
-<input type="submit" value="実行"></form>
-<a href ="master.php">戻る</a><br />
+<input type="submit" value="削除"></form>
 <?php } ?>
 
 
 <?php if($order == 'conrirm_bbs2'){ ?>
 コメントの削除が完了しました。<br/>
+<a href ="master.php">戻る</a><br />
+<?php } ?>
+
+
+
+<?php if($order == 'bbs_comment'){ ?>
+この内容に変更します。<br />
+　ID　　：<?php echo $_SESSION['delete_id']; ?> <br />
+　名前　：<?php echo htmlspecialchars_decode ($_SESSION['delete_user_name'] ,ENT_COMPAT); ?> <br />
+コメント：<?php echo nl2br (htmlspecialchars_decode ($change_comment ,ENT_COMPAT)); ?> <br />
+<?php if(!empty($change_imge_s)){
+	$image_path = upload_image_path($change_imge_s);?>
+	<p><image width="200px" src="<?php $image_path; ?>">
+            <br /></p>';
+<?php } ?>
+
+<form method ="post" action="master_index.php">
+<input type="hidden" name="master_action" value="change_comment2">
+<input type ="submit" value="変更">
+</form><br />
+<?php } ?>
+
+
+<?php if($order == 'bbs_comment2'){ ?>
+コメントの変更が完了しました。<br/>
 <a href ="master.php">戻る</a><br />
 <?php } ?>
 
@@ -46,7 +80,6 @@
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="master_action" value="master_complete">
 <input type="submit" value="実行"></form>
-<a href ="master.php">戻る</a><br />
 <?php } ?>
 
 
@@ -65,7 +98,6 @@
 <input type="hidden" name="master_action" value="change_name2">
 <input type ="submit" value="変更">
 </form><br />
-　　　　　　　　　　　　　　　　　　　<a href ="master.php">戻る</a><br />
 <?php } ?>
 
 
@@ -77,7 +109,6 @@ tittle:<h2 class ="title">　　<?php echo $_SESSION['bbs_name']; ?></h2>
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="master_action" value="change_name3">
 　　　　　　　　　　　　　　　　　　　　<input type="submit" value="実行"></form><br />
-　　　　　　　　　　　　　　　　　　　　　　<a href ="master.php">戻る</a><br />
 <?php } ?>
 
 
@@ -99,7 +130,6 @@ tittle:<h2 class ="title">　　<?php echo $_SESSION['bbs_name']; ?></h2>
 　<input type="radio" name="color" value ="nomal">　ノーマル<br />
 　<input type="hidden" name="master_action" value="change_color2">
 　　<input type="submit" value="実行"></form><br />
-<a href ="master.php">戻る</a><br />
 <?php } ?>
 
 
@@ -111,8 +141,7 @@ tittle:<h2 class ="title">　　<?php echo $_SESSION['bbs_name']; ?></h2>
 <form method ="post" action ="master_index.php">
 <input type="hidden" name="change_color" value="$a">
 <input type="hidden" name="master_action" value="change_color3">
-<input type="submit" value="実行"></form>
-<a href ="master.php">戻る</a><br />
+<input type="submit" value="実行"></form><br />
 <?php } ?>
 
 

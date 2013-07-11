@@ -222,11 +222,10 @@ list($color,$bbs_name) = layout($db);
                         $master =MASTER();
 			if($login == True){
 				$id =$_POST['id'];
-				list($delete_comment,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
+				list($delete_comment,$delete_imge,$delete_pass,$delete_user_id) = GETDELETE($db,$id);
 				//削除ユーザーとコメント記入ユーザーの一致確認
 				if( $delete_user_id == $_SESSION['user_id']){
 					$_SESSION['delete_user_id'] =$delete_user_id;
-					$_SESSION['delete_comment'] =$delete_comment;
 					$_SESSION['delete_user_pass'] =$delete_pass;
 					$_SESSION['delete_id'] =$id;
                                         
@@ -250,7 +249,6 @@ list($color,$bbs_name) = layout($db);
 			if($login == True){
 				$pass =htmlspecialchars($_POST['pass'], ENT_QUOTES, 'UTF-8');
                                 $delete_user_id_s=$_SESSION['delete_user_id'];
-				$delete_comment_s=$_SESSION['delete_comment'];
                                 $delete_pass_s=$_SESSION['delete_user_pass'];
 				$delete_id_s=$_SESSION['delete_id'];
                                 if (substr($_POST['user_name'],0,10) == "javascript:") {
@@ -262,7 +260,6 @@ list($color,$bbs_name) = layout($db);
                                         //削除の実行
                                         $sth = DELETEBBS($db,$delete_id_s);
 
-                                        unset($_SESSION['delete_comment']);
                                         unset($_SESSION['delete_user_pass']);
                                         unset($_SESSION['delete_user_id']);
                                         unset($_SESSION['delete_id']);                                

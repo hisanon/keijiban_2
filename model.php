@@ -159,10 +159,11 @@ function GETDELETE($db,$id){
 			$row =$sth->fetch(PDO::FETCH_ASSOC);
 			
 			$delete_comment =$row['comment'];
+                        $delete_image =$row['image_file'];
 			$delete_pass =$row['pass'];
 			$delete_user_id =$row['user_id'];
 
-			return array($delete_comment,$delete_pass,$delete_user_id);
+			return array($delete_comment,$delete_image,$delete_pass,$delete_user_id);
 }
 
 
@@ -220,12 +221,14 @@ catch(PDOException $e){
 
 
 //掲示板の色変更
-function CHANGE_LAYOUT($db,$c_color,$bbs_name){
+function CHANGE_LAYOUT($db,$c_color){
     try{
-	$sth =$db->prepare("UPDATE layout SET color = ? , bbs_name = ? WHERE id = ?");
-	$sth->bindParam(1, $c_color);
-	$sth->bindParam(2, $bbs_name);
-        $sth->bindParam(3, '1');
+        $no1= '1';
+        $m_name = 'master';
+   	$sth =$db->prepare("UPDATE layout SET name= :name , color= :color WHERE id = :id");
+        $sth->bindValue(':name',$m_name);
+	$sth->bindValue(':color',$c_color);
+        $sth->bindValue(':id',$no1);
         $sth->execute();
 	}
 catch(PDOException $e){
@@ -238,20 +241,23 @@ catch(PDOException $e){
 
 //掲示板の名前変更
 function CHANGENAME($db,$c_name_s){
-    try{
-	$sth =$db->prepare("UPDATE layout SET bbs_name= :bbs_name, WHERE id = :id");
+try{
+        $no1= '1';
+        $m_name = 'master';
+   	$sth =$db->prepare("UPDATE layout SET name= :name , bbs_name= :bbs_name WHERE id = :id");
+        $sth->bindValue(':name',$m_name);
 	$sth->bindValue(':bbs_name',$c_name_s);
-        $sth->bindValue(':id',1);	
+        $sth->bindValue(':id',$no1);
+        $sth->execute();
 	}
 catch(PDOException $e){
 	die('Delete failed:'.$e->getMessage());
 	}
-	return $sth;
-    
+	return $sth;    
 }
 
 
-//ユーザー削除部分の表示
+//ユーザー削除
 function DELETEUSER($db,$id){
 try{
     $sth =$db->prepare("DELETE FROM USERS WHERE user_id = $id");
@@ -276,4 +282,27 @@ catch(PDOException $e){
 	}
 	return $sth;
 }
+
+
+//コメントの編集
+function CHANGEBBS($db,$change_id_s,$change_comment_s,$change_user_id_s){
+try{
+       	$sth =$db->prepare("UPDATE comments SET comment= :comment , user_id= :user_id WHERE id = :id");
+        $sth->bindValue(':comment',$change_comment_s);
+	$sth->bindValue(':user_id',$change_user_id_s);
+        $sth->bindValue(':id',$change_id_s);
+        $sth->execute();
+	}
+catch(PDOException $e){
+	die('Delete failed:'.$e->getMessage());
+	}
+	return $sth;
+    
+}
+
+
+
+
+
+
 ?>

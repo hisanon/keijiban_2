@@ -11,17 +11,18 @@ require_once 'color.php'; ?>
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class="back">
-<h1 class="tittle"><?php echo $bbs_name; ?></h1>
+
+    <h1 class= "title"><?php echo $bbs_name; ?></h1>
 
 <h2>ログイン画面</h2>
-
+<div class="comment">
 <table>
 <div style ="color:red">
 <?php echo $error_msg.$comp_msg; ?>
 </div>
 
 <a href ="view_shingup.php">会員登録</a><br /><br />
-<div class="comment">
+
   <form method="post" action="index.php " >
 		<label for="user_name">　　名前　:</label>
 		<input type="text" id="user_name" name="user_name" value="<?php echo htmlspecialchars_decode ($user_name ,ENT_COMPAT); ?>"/><br />
@@ -36,9 +37,10 @@ require_once 'color.php'; ?>
 		　　　　　　　<input type="submit" value="ログイン" name="submit" />
 		<input type="hidden" value="login" name="action">
 	</form>
+</table>
 </div>
     
 <br /><br />
-</table>
+
 </body>
 </html>

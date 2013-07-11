@@ -3,7 +3,7 @@ require_once 'master.php';
 require_once 'model.php';
 ?>
 <div class="back">
-<div class="comment">
+<div class="msg">
 
     <?php if(empty($order)){ ?>
         <h2>管理者用コメントフォーム</h2>
@@ -16,6 +16,7 @@ require_once 'model.php';
             <input type="submit" value="送信" name="submit" />
         </form>
     <?php }else{require_once 'master_view_confirm.php'; } ?>
+
 </div>    
 
     <br />

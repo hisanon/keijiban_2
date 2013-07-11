@@ -10,13 +10,13 @@ require_once 'model.php'; ?>
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class="back">
-<h1 class="tittle"><?php echo $bbs_name; ?></h1>
+<h1 class="title"><?php echo $bbs_name; ?></h1>
 
 <h2>会員登録</h2>
-
+<div class="comment">
 <div style ="color:red">
 <?php echo $error_msg; ?>
-</div><br />
+</div>
 
 <?php echo $res; ?>
 
@@ -67,5 +67,6 @@ else  { ?>
 <?php } ?>
 		
 </table>
+</div>
 </body>
 </html>
