@@ -2,7 +2,7 @@
 <table border="1" width="500" cellspacing="0" cellpadding="5">
     
 	<tr>
-	<th width="100" class ="time">時間</th><th width="100" class="name">投稿者</th><th width="500" class ="time">コメント</th><th width="80" class="name">削除</th>
+	<th width="30" class ="time">時間</th><th width="50" class="name">投稿者</th><th width="260" class ="time">コメント</th><th width="50" class="name">削除</th>
 	</tr>
 
 <?php $dtcnt = COUNTS($db,$name,$comment,$pass); ?>
@@ -30,7 +30,7 @@
 ?>
 
 	<tr>
-	<td class ="time"><?php echo $time; ?></td>
+	<td class ="time"><?php echo nl2br ($time); ?></td>
 	<td class ="name"><?php echo $user_name; ?></td>
 	<td class ="time"><?php echo nl2br ($comment); 
 			if($image_file){
@@ -38,8 +38,9 @@
 				echo '<p><image width="200px" src=" '.$image_path.' "></p>';
 			} ?>
 	</td>
-	<td class="name"><?php $login=LOGIN();
-            if(empty($delete_action)){ ?>
+	<td class="name">
+          <div align="center">
+           <?php if($user_id == $_SESSION['user_id']){ ?>
 		<form method="post" action="index.php" >
 		<input type="hidden" value="<?php echo $id; ?>" name="id" />
 		<input type="hidden" value="delete" name="action" />
@@ -48,6 +49,7 @@
             <?php } else{ ?>
                 削除
             <?php } ?>
+          </div>
         </td>
 	</tr>
 
@@ -55,15 +57,20 @@
 }?>
         </div>
 </table>
-<?php 
-if($p>1){
-?>
-<a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $prev; ?>">←前のページ</a>
-<?php
-}
-if(($next -1) * $lim < $dtcnt){
-?>	
-<a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $next; ?>">次のページ→</a>
+<table class="back">
+    <tr>
+        <td style="text-align: left">
+          <?php if($p>1){ ?>
+            <a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $prev; ?>">←前のページ</a>
+          <?php } ?>            
+        </td>
+        <td style="text-align: right">
+          <?php if(($next -1) * $lim < $dtcnt){ ?>
+            <a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $next; ?>">次のページ→</a>
+          <?php } ?>            
+        </td>
+    </tr>
+</table>
 
-<?php } ?>
+
 

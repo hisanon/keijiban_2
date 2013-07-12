@@ -11,42 +11,69 @@
 	<title>TRANING02_a</title>
 </head>
 <body class="back">    
-    <div white-space: nowrap >
-<div class ="title"><?php echo $bbs_name; ?></div>
-<?php echo htmlspecialchars_decode ($_SESSION['user_name'] , ENT_QUOTES); ?>としてログイン中です。
+        <table class ="back"><tbody>
+            <tr　width ="500">
+                <td>
+                    <div class ="title"><?php echo $bbs_name; ?></div>
+                </td>
+                <td style="white-space: nowrap;">
+                    <?php echo htmlspecialchars_decode ($_SESSION['user_name'] , ENT_QUOTES); ?>としてログイン中です。
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div style ="color:red">
+                    <?php echo $comp_msg.$error_msg; ?>
+                    </div>
+                </td>
+                <td><div style="text-align: right">
+                    <a href ="view_logout.php">ログアウト</a><br />
+                    </div></td>
+            </tr>
+                
+        </tbody></table>
 
-<div style ="color:red">
-<?php echo $comp_msg.$error_msg; ?>
-</div>
+    <div class="comment">
 
-<a href ="view_logout.php">ログアウト</a><br />
-    </div>
+                
+                <h2>コメントフォーム</h2>
+                <form enctype="multipart/form-data" method="post" action="index.php" >
+                <table class="name">
+                    <tbody width="450">
+                        <tr>
+                            <td>
+                                <label for="comment">コメント</label>                                
+                            </td>
+                            <td>
+                                <label for="comment">:</label>
 
-
-<div class="comment">
-
-    
-<h2>コメントフォーム</h2>
-
-	<form enctype="multipart/form-data" method="post" action="index.php" >
-		<label for="comment">コメント:</label>
-		<textarea id="comment" name="comment"  cols="30" rows="5"> <?php echo htmlspecialchars_decode ($comment, ENT_QUOTES); ?></textarea><br />
-<?php if (empty($comment) && !empty($ec)) { ?>
-		<div style ="color:red">コメントを入力して下さい！</div>
-<?php } ?>
-		<label for="pass">削除パス:</label>
-		<input type="password" id="pass" name="pass" maxlength="4" value="<?php  echo htmlspecialchars_decode ($pass, ENT_QUOTES); ?>"><br />
-<?php if (empty($pass) && !empty($ec)) { ?>
-		<div style ="color:red">パスワードを入力して下さい！</div>
-<?php } ?>
-		<label for="image_file">　画像　:</label>
-		<input type="file" id="image_file" name="image_file" /><br />
-                <input type="hidden" value="confirm" name="action">
-		<input type="submit" value="送信" name="submit" />
-		
-	</form>
-</div>
-
+                            </td>
+                            <td>
+                                <textarea id="comment" name="comment"  cols="30" rows="5"> <?php echo htmlspecialchars_decode ($comment, ENT_QUOTES); ?></textarea><br />
+                                    <?php if (empty($comment) && !empty($ec)) { ?>
+                                        <div style ="color:red">コメントを入力して下さい！</div>
+                                <?php } ?>                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="image_file">画像</label>
+                            </td>
+                            <td>
+                                <label for="image_file">:</label>
+                            </td>
+                            <td>
+                                <input type="file" id="image_file" name="image_file" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <div style="text-align: center">
+                        <input type="hidden" value="confirm" name="action">
+                        <input type="submit" value="送信" name="submit" />
+                    </div>
+                </form>
+     </div>
 		
 <?php
 //掲示板部分の表示

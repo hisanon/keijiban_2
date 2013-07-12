@@ -8,38 +8,56 @@
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class ="back">
-
-    <h1 class="title">掲示板</h1>
-<h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。</h3>
-<a href ="view_logout.php">ログアウト</a><br />
-
+    <table class="name">
+        <tbody width="500">
+            <tr>
+                <td class="title">
+                    <?php echo $bbs_name; ?>
+                </td>
+                <td style="text-align: right">
+                    <?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  <div style="text-align: right">
+    <a href ="view_logout.php">ログアウト</a><br />
+  </div>
 <table>
 
-    <div class="comment">
+<table class="comment">
     
-<!---削除確認--->
+ <h2>削除確認</h2>
 <div style ="color:red"><?php echo $master_msg.'<br/>';?></div>
-このコメントを削除します。<br/>
-コメント：<?php echo nl2br (htmlspecialchars_decode ($delete_comment ,ENT_COMPAT));
-if(!empty($delete_imge)){
-	$image_path = upload_image_path($delete_imge);
-	echo '<p><image width="200px" src=" '.$image_path.' "></p>';
-} ?>
-
-<form method ="post" action ="index.php">
-削除パス入力:
-<input type="password" name="pass" maxlength="4" value="">
-<input type="hidden" name="action" value="delete2">
-<input type="submit" value="削除"></form>
-
-
-<!---パスワードの確認--->
-<div style ="color:red"><?php echo $error_msg; ?> </div>
-
-
-<a href ="index.php">戻る</a>
-
+このコメントを削除します。
+<!---削除確認--->
+<div width="450">
+    <tbody>
+        <tr>
+            <td>コメント</td><td>:</td>
+            <td>
+                <?php echo nl2br (htmlspecialchars_decode ($delete_comment ,ENT_COMPAT));
+                    if(!empty($delete_imge)){
+                        $image_path = upload_image_path($delete_imge);
+                        echo '<p><image width="200px" src=" '.$image_path.' "></p>';
+                    } ?>
+            </td>
+        </tr>
+        <tr>
+            <td width="100">
+                <form method ="post" action ="index.php">
+                <input type="hidden" name="action" value="delete_complete">
+               <input type="submit" value="削除"></form>
+            </td>
+            <td>
+                <form method ="post" action ="index.php">
+                <input type="hidden" name="action" value="">
+                <input type="submit" value="戻る"></form>
+            </td>
+        </tr>
+    </tbody>
 </div>
+
 <?php
 //掲示板部分の表示
 require_once 'view_bbs2.php';
