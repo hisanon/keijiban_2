@@ -1,6 +1,5 @@
 <?php
 require_once 'master.php';
-require_once 'master_index.php';
 require_once 'model.php';
 ?>
 

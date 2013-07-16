@@ -8,29 +8,49 @@ require_once 'color.php'; ?>
 
 <head>
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class ="back">
-<h1 class="tittle"><?php echo $bbs_name; ?></h1>
+    
+    <table class="back">
+        <tbody>
+            <tr style="width:500">
+                <td class= "title">
+                    <?php echo $bbs_name; ?>
+                </td>
+                <td style="align: center">
+                    <?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。
+                </td>
+            </tr>    
+        </tbody>        
+    </table>
 
-<table>
-    <div class="comment">
-
+<div class="comment">
 <h2>ログアウト</h2>
-<h3>ログアウトしてもよろしいですか？</h3>
+<p>ログアウトしてもよろしいですか？</p>
+<div style="text-align:center">
+    <table class="name">
+        <tbody>
+            <tr>
+                <td style="width:80">
+                    <form method="post" action="index.php " >
+                        <input type="submit" value="はい" name="submit" />
+                        <input type="hidden" value="logout_complete" name="action">
+                    </form>                    
+                </td>
+                <td style="width:80">
+                    <form method="post" action="index.php " >
+                        <input type="submit" value="いいえ" name="submit" />
+                        <input type="hidden" value="" name="action">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<form method="post" action="index.php " >
-<input type="submit" value="はい" name="submit" />
-<input type="hidden" value="logout_complete" name="action">
-</form>
-
-<form method="post" action="index.php " >
-<input type="submit" value="いいえ" name="submit" />
-<input type="hidden" value="" name="action">
-</form>
-	
-    </div>
-</table>
+</div>
+</div>
 </body>
 </html>

@@ -1,1 +1,5 @@
-.comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px;}
+.back { width:500px; margin-left:auto; margin-right:auto}  /* 全体の背景色 skyblue*/
+.title { font-weight: bold; font-size: 60px} /* タイトル文字色 */
+.comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; margin-left:auto; margin-right:auto}
+
+.msg {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; }

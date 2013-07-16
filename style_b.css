@@ -1,7 +1,10 @@
-.back { background-color: #F0FFFF }  /* 全体の背景色 skyblue*/
-.title { color: #3300cc } /* タイトル文字色 */
+.back { background-color: #F0FFFF ;width:500px; margin-left:auto; margin-right:auto}  /* 全体の背景色 skyblue*/
+.title { color: #3300cc ; font-weight: bold; font-size: 60px} /* タイトル文字色 */
 table { background-color: #99ffff }    /* テーブルの背景色 */
-.comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #ccFFFF}
+.comment {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #ccFFFF; margin-left:auto; margin-right:auto}
 .time {background-color: #ccffff; color: #000000; }
 .name {background-color: #F0FFFF; color: #000000;}
 .msg {padding: 10px; margin-bottom: 10px; border: 5px double #333333; width:450px; background-color: #F0FFFF}
+
+
+

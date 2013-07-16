@@ -4,24 +4,41 @@
     
 <head>
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class ="back">
-<h1 style="tittle"><?php echo $bbs_name; ?></h1>
+    <table class="back">
+        <tbody style="width:500">
+            <tr>
+                <td class="title">
+                   <?php echo $bbs_name; ?> 
+                </td>
+                <td style="taxt-align: left">
+                    <?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<table>
+  <div style="text-align: right">
+    <a href ="view_logout.php">ログアウト</a><br />
+  </div>
     
-<h3><?php echo htmlspecialchars_decode ($_SESSION['user_name'] ,ENT_COMPAT); ?>としてログイン中です。</h3>
-<a href ="view_logout.php">ログアウト</a><br />
+<div class ="comment">
+<h3>削除完了</h3>
+<div style ="color:red">・コメントが削除されました。</div>
 
-    <div class ="comment">
-<h3>確認</h3>
-<div style ="color:red"><?php echo $master_msg.'<br/>';?></div>
-<div style= "color : red;">コメントが削除されました。</div><br />
-<a href ="index.php">戻る</a>
-    </div>
-</table>
+   <div align="center">
+     <form method ="post" action ="index.php">
+        <input type="hidden" name="action" value="">
+        <input type="submit" value="戻る">
+     </form>
+   </div>
+        
+</div>
+
 <?php
 //掲示板部分の表示
 require_once 'view_bbs2.php';

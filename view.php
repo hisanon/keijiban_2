@@ -6,13 +6,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
     
 <head>
+    <link rel="stylesheet" href="main.css" type="text/css" />
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>TRANING02_a</title>
 </head>
 <body class="back">    
         <table class ="back"><tbody>
-            <tr　width ="500">
+            <tr style="width:500;">
                 <td>
                     <div class ="title"><?php echo $bbs_name; ?></div>
                 </td>
@@ -39,7 +40,7 @@
                 <h2>コメントフォーム</h2>
                 <form enctype="multipart/form-data" method="post" action="index.php" >
                 <table class="name">
-                    <tbody width="450">
+                    <tbody style="width:450;">
                         <tr>
                             <td>
                                 <label for="comment">コメント</label>                                

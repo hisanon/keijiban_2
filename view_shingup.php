@@ -6,13 +6,14 @@ require_once 'model.php'; ?>
 
 <head>
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><?php echo $bbs_name; ?></title>
 </head>
 <body class="back">
     <table class="back">
         <tbody>
-            <tr width="500">
+            <tr style="width:500">
                 <td class="title">
                     <?php echo $bbs_name; ?>
                 </td>

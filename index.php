@@ -134,10 +134,6 @@ list($color,$bbs_name) = layout($db);
                                      die("error!!");
                                 }
                                 else{
-                                
-				//パス入力のチェック
-				if(!empty($pass)) {
-
 						//ファイルの処理
 						if(!$_FILES['image_file']['error']){
 							$image_size = $_FILES['image_file']['size'];
@@ -173,13 +169,8 @@ list($color,$bbs_name) = layout($db);
 						require_once 'view_confirm.php';
 										
 				}
-				else{
-					//パスが入力されていなかったら戻る
-					$ec = 'ec';
-					require_once 'view.php';
-				}
 			}
-                        }
+                        
 			else{
 				$error_msg ='ログインの確認が取れません。<br/>もう一度ログインし直して下さい。';
 				require_once 'view_login.php';
@@ -226,8 +217,10 @@ list($color,$bbs_name) = layout($db);
 				//削除ユーザーとコメント記入ユーザーの一致確認
 				if( $delete_user_id == $_SESSION['user_id']){
 					$_SESSION['delete_user_id'] =$delete_user_id;
-					$_SESSION['delete_user_pass'] =$delete_pass;
+					$_SESSION['delete_comment'] =$delete_comment;
+					$_SESSION['delete_imge'] =$delete_imge;
 					$_SESSION['delete_id'] =$id;
+                                        
                                         
 					require_once 'view_delete.php';
 				}
@@ -251,28 +244,21 @@ list($color,$bbs_name) = layout($db);
                                 $delete_user_id_s=$_SESSION['delete_user_id'];
                                 $delete_pass_s=$_SESSION['delete_user_pass'];
 				$delete_id_s=$_SESSION['delete_id'];
+                                
                                 if (substr($_POST['user_name'],0,10) == "javascript:") {
                                      die("error!!");
                                 }
                                 else{
-                                    //入力passのチェック
-                                    if ($pass == $delete_pass_s){
                                         //削除の実行
                                         $sth = DELETEBBS($db,$delete_id_s);
 
-                                        unset($_SESSION['delete_user_pass']);
+                                        unset($_SESSION['delete_comment']);
+                                        unset($_SESSION['delete_imge']);                                        
                                         unset($_SESSION['delete_user_id']);
                                         unset($_SESSION['delete_id']);                                
                                     
                                         //完了画面
                                         require_once 'view_delete_complete.php';                                       
-                                    }
-                                    else{
-                                        //エラーの場合戻る
-                                        $error_msg ='削除パスが間違っています。';
-                                        
-                                        require_once 'view_delete.php';			
-                                    }
                                }
 			}
 			else{

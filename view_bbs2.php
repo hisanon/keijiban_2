@@ -59,12 +59,15 @@
 </table>
 <table class="back">
     <tr>
-        <td style="text-align: left">
+        <td style="text-align: left; width:150px">
           <?php if($p>1){ ?>
             <a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $prev; ?>">←前のページ</a>
           <?php } ?>            
         </td>
-        <td style="text-align: right">
+        <td style="text-align: center;width:200px">
+            <?php echo $prev.'ページ目'; ?> 
+        </td>
+        <td style="text-align: right; width:150px">
           <?php if(($next -1) * $lim < $dtcnt){ ?>
             <a href ="<?php $_SERVER['PHP_SELF']; ?>?p=<?php echo $next; ?>">次のページ→</a>
           <?php } ?>            

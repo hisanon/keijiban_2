@@ -44,7 +44,8 @@ $master_action =$_POST[master_action];
 	
 	$mail =$_POST['mail'];
 	$user_pass =$_POST['user_pass'];
-
+        
+        
 //半角の変更
 $mail_b = mb_convert_kana($mail, "a", "UTF-8");
 $user_pass_b = mb_convert_kana($user_pass, "a", "UTF-8");

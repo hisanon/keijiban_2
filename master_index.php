@@ -1,17 +1,12 @@
 <?php
-
 require_once 'model.php';
-$order = '';
+$order = "";
 
 $master_action =$_POST[master_action];
 $order="";
 
 $_SESSION['user_name'] = master;
 $_SESSION['user_id'] = 1;
-
-echo $master_action;
-//echo $c_color;
-
 
 
 switch($master_action){
@@ -25,7 +20,6 @@ switch($master_action){
         $_SESSION['delete_id'] =$delete_id;
         
                 $order = 'confirm_users';
-        echo $_SESSION['delete_id'];
         require_once 'master_view_users.php';
     break;
     
@@ -139,7 +133,6 @@ switch($master_action){
         $order='conrirm_bbs2';
         $delete_id_s=$_SESSION['delete_id'];
 
-        echo 'aaaa'.$delete_id_s;
             //削除の実行
             $sth = DELETEBBS($db,$delete_id_s);
 

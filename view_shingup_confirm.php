@@ -7,6 +7,7 @@ require_once 'color.php'; ?>
 
 <head>
     <link rel="stylesheet" href="<?php echo $css; ?>" type="text/css" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><?php echo $bbs_name; ?></title>
 </head>
@@ -30,21 +31,21 @@ require_once 'color.php'; ?>
     <!---書き込み内容--->
 <table class="name">
     <tr>
-        <td width="120" align="center">ユーザー名</td>
-        <td width="10">:</td>
-        <td width="320">
+        <td class="center120">ユーザー名</td>
+        <td style="width:10">:</td>
+        <td style="width:320">
             <?php echo htmlspecialchars_decode($_SESSION['user_name'],ENT_NOQUOTES); ?>
         </td>
     </tr>
     <tr>
-        <td align="center">メールアドレス</td>
+        <td style="text-align:center">メールアドレス</td>
         <td>:</td>
         <td>
             <?php echo htmlspecialchars($_SESSION['mail'],ENT_NOQUOTES); ?>
         </td>
     </tr>
     <tr>
-        <td align="center">パスワード</td>
+        <td style="text-align:center">パスワード</td>
         <td>:</td>
         <td>
             <?php echo str_repeat('●' , mb_strlen($_SESSION['user_pass'])); ?>
@@ -52,15 +53,15 @@ require_once 'color.php'; ?>
     </tr>
 </table>
     <p style="color:red; text-align: center;">この内容でよろしければ登録ボタンを押して下さい。</p>
-    <div align="center">
+    <div style="text-align:center">
 <table class="name">
     <tr>
-        <td width="100">
+        <td style="width:80">
             <form method ="post" action ="index.php">
             <input type="hidden" name="action" value="shingup_complete">
             <input type="submit" value="登録"></form>
         </td>
-        <td>
+        <td style="width:80">
             <form method ="post" action ="index.php">
             <input type="hidden" name="action" value="shingup">
             <input type="submit" value="戻る"></form>
